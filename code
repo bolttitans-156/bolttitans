@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bolt Titans | NRL 2026</title>
+
+    <meta
+        name="description"
+        content="Bolt Titans — NRL 2026 robotics team. Engineering the future, one mission at a time."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #2b123f;
+            color: #efbf04;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background:#2b123f;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+            --steel-900: #172027;
+            --steel-800: #26323a;
+            --steel-700: #e1e1e1;
+            --steel-500: #d0d0d0;
+            --steel-300: #dedede;
+            --steel-200: #e8e8e8;
+            --steel-100: #f5f5f5;
+
+            --white: #ffffff;
+
+            --electric: #6d3a9c;
+            --electric-dark: #4b216f;
+
+            --shadow:
+                0 20px 50px rgba(27, 40, 49, 0.10);
+
+            --radius-lg: 28px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+        }
+
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        .container {
+            width: min(1180px, calc(100% - 40px));
+            margin: auto;
+        }
+
+        .section {
+            padding: 110px 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+
+            color: var(--electric);
+            margin-bottom: 18px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--electric);
+        }
+
+        .section-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+            color: #efbf04;
+        }
+
+        .section-description {
+            max-width: 650px;
+            color: #efbf04;
+            margin-top: 20px;
+            font-size: 1.05rem;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(27, 14, 40, 0.92);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(57, 72, 80, 0.10);
+        }
+
+        nav {
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+            place-items: center;
+
+            color: white;
+            background: var(--steel-900);
+
+            border-radius: 11px;
+
+            font-weight: 900;
+            font-size: 18px;
+
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+        }
+
+        .brand span:last-child {
+            color: var(--electric);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            font-size: 14px;
+            font-weight: 600;
+            color: #efbf04;
+        }
+
+        .nav-links a {
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric);
+        }
+
+        .nav-button {
+            padding: 11px 18px;
+            border-radius: 10px;
+
+            color: #efbf04 !important;
+            background: var(--steel-900);
+        }
+
+        .nav-button:hover {
+            background: var(--electric);
+        }
+
+        .menu-button {
+            display: none;
+
+            border: none;
+            background: transparent;
+
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+            padding-top: 150px;
+            padding-bottom: 90px;
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+
+            background: #2b123f;
+        }
+
+        /*
+            Technical grid
+        */
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            opacity: 0.38;
+
+            background-image:
+                linear-gradient(
+                    rgba(57,72,80,0.06) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(57,72,80,0.06) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            mask-image: linear-gradient(
+                to right,
+                black,
+                transparent 85%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 7px 12px;
+
+            border: 1px solid var(--steel-300);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.6);
+
+            color: var(--steel-700);
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--electric);
+
+            box-shadow:
+                0 0 0 5px rgba(109,58,156,0.12);
+        }
+
+        .hero h1 {
+            margin-top: 26px;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(4rem, 8vw, 7.8rem);
+            line-height: 0.84;
+
+            letter-spacing: -0.07em;
+
+            color: #efbf04;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--electric);
+        }
+
+        .hero-subtitle {
+            max-width: 650px;
+            margin-top: 30px;
+
+            color: #efbf04;
+            font-size: 1.12rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+
+            margin-top: 34px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            padding: 14px 20px;
+
+            border-radius: 11px;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-primary {
+            background: var(--steel-900);
+            color: white;
+
+            box-shadow: 0 12px 30px rgba(23,32,39,0.18);
+        }
+
+        .btn-primary:hover {
+            background: var(--electric);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid var(--steel-300);
+            color: var(--steel-800);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--electric);
+            color: var(--electric);
+        }
+
+
+        /* =========================================================
+           ROBOT VISUAL
+        ========================================================= */
+
+        .robot-stage {
+            min-height: 470px;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .robot-glow {
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(109,58,156,0.22),
+                    transparent 65%
+                );
+
+            filter: blur(10px);
+        }
+
+        .robot-card {
+            width: min(420px, 100%);
+            aspect-ratio: 1 / 1;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fafcfd,
+                    #d9e0e4
+                );
+
+            border:
+                1px solid rgba(57,72,80,0.16);
+
+            border-radius: 35px;
+
+            box-shadow:
+                25px 35px 80px rgba(23,32,39,0.16),
+                inset 0 1px 0 white;
+
+            transform: rotate(3deg);
+        }
+
+        .robot-card::before {
+            content: "";
+
+            position: absolute;
+            inset: 18px;
+
+            border:
+                1px solid rgba(57,72,80,0.12);
+
+            border-radius: 25px;
+        }
+
+        .robot-icon {
+            position: relative;
+
+            width: 210px;
+            height: 155px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #303d45,
+                    #151d22
+                );
+
+            border:
+                2px solid #66757e;
+
+            box-shadow:
+                0 30px 50px rgba(0,0,0,0.22),
+                inset 0 2px 3px rgba(255,255,255,0.18);
+
+            transform: rotate(-3deg);
+        }
+
+        .robot-icon::before {
+            content: "";
+
+            position: absolute;
+
+            left: 40px;
+            right: 40px;
+            top: 30px;
+
+            height: 55px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #26333a,
+                    #0d1317
+                );
+
+            border: 1px solid #53636c;
+        }
+
+        .robot-eye {
+            position: absolute;
+
+            width: 17px;
+            height: 17px;
+
+            top: 48px;
+
+            border-radius: 50%;
+
+            background: var(--electric);
+
+            box-shadow:
+                0 0 20px rgba(109,58,156,0.9);
+        }
+
+        .robot-eye.left {
+            left: 72px;
+        }
+
+        .robot-eye.right {
+            right: 72px;
+        }
+
+        .robot-wheel {
+            position: absolute;
+
+            width: 65px;
+            height: 25px;
+
+            bottom: -15px;
+
+            background: #11181c;
+
+            border:
+                2px solid #53636c;
+
+            border-radius: 50%;
+        }
+
+        .robot-wheel.left {
+            left: 25px;
+        }
+
+        .robot-wheel.right {
+            right: 25px;
+        }
+
+        .robot-label {
+            position: absolute;
+
+            right: -20px;
+            top: 50px;
+
+            padding<
