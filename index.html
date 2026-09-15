@@ -1,3 +1,23 @@
+Pasted text(2).txt
+Document
+make the turbo rush game smaller in size
+
+Done! I made the Turbo Rush game more compact:
+
+Game area: 520×640 → 400×500
+Cars made smaller
+Road markings scaled down
+Game section has less vertical spacing
+Score panel and message are narrower
+Gameplay itself remains unchanged
+
+The original file contains the Turbo Rush section and game styling.
+
+Download the smaller Turbo Rush version
+
+I can also make it even smaller or 
+make it fit neatly beside other website content. 
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1231,7 +1251,7 @@
 
         .race-section {
             background: #160b22;
-            padding: 110px 0;
+            padding: 70px 0;
         }
 
         .race-header {
@@ -1240,7 +1260,7 @@
         }
 
         .race-panel {
-            max-width: 650px;
+            max-width: 500px;
             margin: 0 auto 18px;
             padding: 18px 22px;
             border-radius: 18px;
@@ -1267,8 +1287,8 @@
 
         .race-area {
             position: relative;
-            max-width: 520px;
-            height: 640px;
+            max-width: 400px;
+            height: 500px;
             margin: 0 auto;
             overflow: hidden;
             border-radius: 24px;
@@ -1298,10 +1318,10 @@
 
         .road-line {
             position: absolute;
-            width: 10px;
-            height: 70px;
+            width: 8px;
+            height: 55px;
             left: 50%;
-            margin-left: -5px;
+            margin-left: -4px;
             background: rgba(255,255,255,0.8);
             border-radius: 8px;
             animation: roadMove 1.2s linear infinite;
@@ -1314,37 +1334,37 @@
 
         @keyframes roadMove {
             0% { transform: translateY(0); }
-            100% { transform: translateY(760px); }
+            100% { transform: translateY(600px); }
         }
 
         .car {
             position: absolute;
-            width: 82px;
-            height: 140px;
+            width: 62px;
+            height: 105px;
             display: grid;
             place-items: center;
             border-radius: 18px;
-            font-size: 48px;
-            box-shadow: 0 18px 28px rgba(0,0,0,0.25);
+            font-size: 36px;
+            box-shadow: 0 14px 22px rgba(0,0,0,0.25);
             transition: transform 0.12s ease;
             user-select: none;
         }
 
         .player-car {
             background: linear-gradient(180deg, #f5d14a, #efbf04);
-            border: 3px solid #fff3b0;
-            bottom: 26px;
+            border: 2px solid #fff3b0;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
         }
 
         .enemy-car {
             background: linear-gradient(180deg, #c54dff, #6d3a9c);
-            border: 3px solid #f9d4ff;
+            border: 2px solid #f9d4ff;
         }
 
         .race-message {
-            max-width: 520px;
+            max-width: 400px;
             margin: 18px auto 0;
             text-align: center;
             padding: 14px 18px;
