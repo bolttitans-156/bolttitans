@@ -70,8 +70,40 @@
         .game-card{border-radius:16px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.12));border:1px solid rgba(255,255,255,0.04);box-shadow:0 18px 40px rgba(0,0,0,0.5);}
         .game-card canvas{width:100%;height:260px;display:block;border-radius:10px;background:linear-gradient(180deg,#161014,#20121b)}
         .game-ui{display:flex;gap:8px;align-items:center}
+        .biospark-preview{display:grid;grid-template-columns:1fr minmax(220px,.72fr);gap:36px;align-items:center;margin-top:22px;padding:clamp(22px,4vw,42px);border:1px solid rgba(184,134,11,.24);border-radius:22px;background:radial-gradient(ellipse at 85% 50%,rgba(184,134,11,.12),transparent 42%),linear-gradient(145deg,#211522,#160d18)}
+        .biospark-orbit{position:relative;width:min(100%,300px);aspect-ratio:1;justify-self:center;border:1px solid rgba(184,134,11,.5);border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,.2) 0 10%,transparent 10.5% 34%,rgba(184,134,11,.1) 34.5% 35%,transparent 35.5% 67%,rgba(184,134,11,.16) 67.5% 68%,transparent 68.5%)}
+        .biospark-orbit::before,.biospark-orbit::after{content:"";position:absolute;inset:14%;border:1px solid rgba(245,247,248,.12);border-radius:50%}
+        .biospark-orbit::after{inset:32%;border-color:rgba(184,134,11,.35)}
+        .biospark-orbit-mark{position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font:700 13px Space Grotesk,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+        .biospark-orbit-mark::before,.biospark-orbit-mark::after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 22px rgba(184,134,11,.6)}
+        .biospark-orbit-mark::before{top:8%;left:48%}.biospark-orbit-mark::after{bottom:15%;right:14%;width:7px;height:7px}
+        .biospark-game{margin-top:20px;padding:clamp(22px,4vw,36px);border:1px solid rgba(184,134,11,.24);border-radius:22px;background:linear-gradient(145deg,#211522,#160d18)}
+        .biospark-game-header{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:24px}
+        .biospark-game-header h3{font-family:Space Grotesk;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.12;margin:8px 0}
+        .biospark-game-header p{max-width:520px;color:var(--muted)}
+        .game-score{display:flex;gap:18px;align-items:center;white-space:nowrap;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.08em}
+        .game-score span{display:grid;gap:2px}.game-score strong{color:var(--text);font:700 20px Space Grotesk,sans-serif;letter-spacing:0}
+        .game-round{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:24px 0;border-top:1px solid rgba(255,255,255,.08)}
+        .game-prompt-label{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .game-prompt h4{font:700 clamp(1.7rem,4vw,2.8rem) Space Grotesk,sans-serif;line-height:1.08;margin:8px 0}
+        .game-prompt p,.game-feedback{color:var(--muted);font-size:14px}
+        .game-answers{display:grid;gap:9px}
+        .game-answer,.game-next{min-height:48px;padding:11px 14px;border:1px solid rgba(255,255,255,.12);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(0,0,0,.19);color:var(--text);font-weight:700;text-align:left;cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
+        .game-answer:hover:not(:disabled),.game-next:hover{transform:translateY(-1px);border-color:rgba(184,134,11,.7);background:rgba(184,134,11,.1)}
+        .game-answer:focus-visible,.game-next:focus-visible{outline:2px solid #f4d77f;outline-offset:3px}
+        .game-answer span,.game-next span{color:var(--accent);font-size:18px}
+        .game-answer:disabled{cursor:default;opacity:.72}
+        .game-answer.is-correct{border-color:rgba(145,177,117,.75);background:rgba(93,124,69,.18)}
+        .game-answer.is-wrong{border-color:rgba(190,108,93,.65);background:rgba(134,68,58,.15)}
+        .game-feedback{min-height:44px;margin-top:12px}
+        .game-next{width:max-content;min-height:40px;padding:8px 13px;color:#fff2c8;background:rgba(184,134,11,.14)}
+        .game-next[hidden]{display:none}
+        .game-progress{height:4px;overflow:hidden;border-radius:9px;background:rgba(255,255,255,.08)}
+        .game-progress span{display:block;width:0;height:100%;background:var(--accent);transition:width .35s ease}
+        .title-pill-actions{display:flex;align-items:center;gap:12px}
         footer{padding:30px 0;color:var(--muted);background:#0b0710}
-        @media(max-width:900px){.hero-content{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.members-grid{grid-template-columns:repeat(2,1fr)}.robot-illustration{width:260px;height:260px}}
+        @media(max-width:900px){.hero-content{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.members-grid{grid-template-columns:repeat(2,1fr)}.robot-illustration{width:260px;height:260px}.biospark-preview{grid-template-columns:1fr .75fr;gap:22px}.game-round{gap:20px}}
+        @media(max-width:600px){.hero{overflow-x:clip}.title-pill{width:96%;padding:8px 10px;gap:8px}.title-pill .brand-mark{width:36px;height:36px}.title-pill .brand{font-size:13px;gap:4px}.title-pill-actions{gap:6px}.title-pill-actions .nav-links{display:none}.title-pill-actions .btn{margin-left:0!important;padding:7px 9px!important;font-size:12px}.biospark-preview{grid-template-columns:1fr}.biospark-orbit{width:min(72vw,250px)}.biospark-game-header{align-items:start;flex-direction:column;gap:14px}.game-round{grid-template-columns:1fr;gap:18px;padding:20px 0}.game-prompt h4{font-size:2rem}.game-score{gap:20px}}
     </style>
 </head>
 <body>
@@ -79,8 +111,9 @@
         <nav class="container">
                 <div class="title-pill">
                 <div style="display:flex;gap:12px;align-items:center"><div class="brand-mark">BT</div><div class="brand">BOLT <span>TITANS</span></div></div>
-                <div style="display:flex;align-items:center;gap:12px">
+                <div class="title-pill-actions" style="display:flex;align-items:center;gap:12px">
                     <div class="nav-links"> <!-- minimal links --> <a href="#about">About</a> · <a href="#team">Team</a> · <a href="#contact">Contact</a></div>
+                    <a href="biospark.html" class="btn liquid btn-secondary" style="padding:8px 12px;white-space:nowrap">BioSpark</a>
                     <a href="robot-maze.html" class="btn liquid btn-primary" style="margin-left:8px;padding:8px 12px;white-space:nowrap">Play</a>
                 </div>
             </div>
@@ -218,7 +251,52 @@
                     <article class="update-card liquid"><div style="font-weight:800;color:var(--accent)">BUILD</div><h3>Prototype season begins</h3><p style="color:var(--muted)">Mechanisms are being tested.</p></article>
                     <article class="update-card liquid"><div style="font-weight:800;color:var(--accent)">STRATEGY</div><h3>Breaking down the challenge</h3><p style="color:var(--muted)">Developing initial match strategy.</p></article>
                 </div>
-                <!-- game removed from front page (use Play in header) -->
+            </div>
+        </section>
+
+        <section class="section" id="biospark">
+            <div class="container">
+                <div class="eyebrow">A NEW IDEA IN THE WORKS</div>
+                <h2 class="section-title">Meet BioSpark.</h2>
+                <div class="biospark-preview liquid">
+                    <div>
+                        <div class="eyebrow">ORGANIC WASTE → ELECTRICITY</div>
+                        <h3 style="font-family:Space Grotesk;font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.08;margin:10px 0">A small idea with a circular future.</h3>
+                        <p style="color:var(--muted);max-width:540px">BioSpark is our early exploration of how organic waste might be turned into usable electricity. We are still researching the process, the science and what a safe first prototype could look like.</p>
+                        <a class="btn btn-primary liquid" href="biospark.html" style="margin-top:20px">Explore the BioSpark concept <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="biospark-orbit" aria-hidden="true"><div class="biospark-orbit-mark">BioSpark</div></div>
+                </div>
+                <section class="biospark-game" aria-labelledby="biospark-game-title">
+                    <div class="biospark-game-header">
+                        <div>
+                            <div class="eyebrow">THE FEEDSTOCK CHALLENGE</div>
+                            <h3 id="biospark-game-title">What belongs in the mix?</h3>
+                            <p>Sort everyday materials by whether they are organic. BioSpark's actual feedstock is still undecided.</p>
+                        </div>
+                        <div class="game-score" aria-label="Game score">
+                            <span>ITEM<strong id="game-round-count">1 / 8</strong></span>
+                            <span>SCORE<strong id="game-score">0</strong></span>
+                        </div>
+                    </div>
+                    <div class="game-round">
+                        <div class="game-prompt">
+                            <div class="game-prompt-label" id="game-step">ITEM 01 / 08</div>
+                            <h4 id="game-item">Banana peel</h4>
+                            <p>Could this be organic material?</p>
+                        </div>
+                        <div class="game-controls">
+                            <div class="game-answers" role="group" aria-label="Choose a material category">
+                                <button class="game-answer" type="button" data-sort="organic">Organic material <span aria-hidden="true">↗</span></button>
+                                <button class="game-answer" type="button" data-sort="not-organic">Not organic <span aria-hidden="true">↘</span></button>
+                            </div>
+                            <p class="game-feedback" id="game-feedback" aria-live="polite">BioSpark's possible inputs are still being researched.</p>
+                            <button class="game-next" id="game-next" type="button" hidden>Next material <span aria-hidden="true">→</span></button>
+                            <button class="game-next" id="game-restart" type="button" hidden>Play again <span aria-hidden="true">↻</span></button>
+                        </div>
+                    </div>
+                    <div class="game-progress" id="game-progress" role="progressbar" aria-label="Sorting round progress" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><span id="game-progress-bar"></span></div>
+                </section>
             </div>
         </section>
 
@@ -292,6 +370,88 @@
             };
             window.addEventListener('scroll', onScroll, {passive:true});
             // remove hover-driven class toggles to avoid layout jumps — keep pill interactive both top and bottom
+        })();
+
+        (function(){
+            const items = [
+                {name:'Banana peel',kind:'organic',note:'Banana peels are organic food scraps; our actual project feedstock is still undecided.'},
+                {name:'Used tea leaves',kind:'organic',note:'Tea leaves are plant material and count as organic matter.'},
+                {name:'Garden leaves',kind:'organic',note:'Leaves are organic material, though availability and safe handling would matter in a real system.'},
+                {name:'Eggshells',kind:'organic',note:'Eggshells come from a living source and are organic material.'},
+                {name:'Plastic wrapper',kind:'not-organic',note:'A plastic wrapper is synthetic, not organic material.'},
+                {name:'Aluminum can',kind:'not-organic',note:'Aluminum is a metal, not organic material.'},
+                {name:'Glass bottle',kind:'not-organic',note:'Glass is not organic material.'},
+                {name:'Foam cup',kind:'not-organic',note:'Foam is a manufactured material, not organic matter.'}
+            ];
+            const itemName = document.getElementById('game-item');
+            const stepLabel = document.getElementById('game-step');
+            const roundCount = document.getElementById('game-round-count');
+            const scoreLabel = document.getElementById('game-score');
+            const feedback = document.getElementById('game-feedback');
+            const progress = document.getElementById('game-progress');
+            const progressBar = document.getElementById('game-progress-bar');
+            const answerButtons = [...document.querySelectorAll('.game-answer')];
+            const nextButton = document.getElementById('game-next');
+            const restartButton = document.getElementById('game-restart');
+            let itemIndex = 0;
+            let score = 0;
+            let answered = false;
+
+            function renderItem() {
+                const item = items[itemIndex];
+                answered = false;
+                itemName.textContent = item.name;
+                stepLabel.textContent = `ITEM ${String(itemIndex + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`;
+                roundCount.textContent = `${itemIndex + 1} / ${items.length}`;
+                feedback.textContent = "BioSpark's possible inputs are still being researched.";
+                answerButtons.forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove('is-correct', 'is-wrong');
+                });
+                nextButton.hidden = true;
+                restartButton.hidden = true;
+            }
+
+            function chooseCategory(button) {
+                if (answered) return;
+                answered = true;
+                const item = items[itemIndex];
+                const isCorrect = button.dataset.sort === item.kind;
+                if (isCorrect) score += 1;
+                scoreLabel.textContent = String(score);
+                answerButtons.forEach(answerButton => {
+                    answerButton.disabled = true;
+                    if (answerButton.dataset.sort === item.kind) answerButton.classList.add('is-correct');
+                });
+                if (!isCorrect) button.classList.add('is-wrong');
+                feedback.textContent = `${isCorrect ? 'Correct.' : 'Not quite.'} ${item.note}`;
+                progress.setAttribute('aria-valuenow', String(itemIndex + 1));
+                progressBar.style.width = `${(itemIndex + 1) / items.length * 100}%`;
+
+                if (itemIndex === items.length - 1) {
+                    itemName.textContent = 'Round complete';
+                    stepLabel.textContent = 'BIO SPARK FIELD NOTES';
+                    roundCount.textContent = `${items.length} / ${items.length}`;
+                    feedback.textContent = `You sorted ${score} of ${items.length} correctly. BioSpark's actual feedstock has not been chosen.`;
+                    restartButton.hidden = false;
+                } else {
+                    nextButton.hidden = false;
+                }
+            }
+
+            answerButtons.forEach(button => button.addEventListener('click', () => chooseCategory(button)));
+            nextButton.addEventListener('click', () => {
+                itemIndex += 1;
+                renderItem();
+            });
+            restartButton.addEventListener('click', () => {
+                itemIndex = 0;
+                score = 0;
+                scoreLabel.textContent = '0';
+                progress.setAttribute('aria-valuenow', '0');
+                progressBar.style.width = '0%';
+                renderItem();
+            });
         })();
 
         
