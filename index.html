@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12061b">
+<meta name="description" content="Bolt Titans — NRL 2026 robotics team.">
+<title>BOLT TITANS — Kinetic NRL 2026</title>
+
+<!-- Premium, highly readable display + body fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   BOLT TITANS — KINETIC DESIGN SYSTEM
+   Purple/gold brand + vivid gradient accents
+   ========================================================= */
+
+:root {
+  --bg: #0d0613;
+  --bg-2: #16081f;
+  --panel: rgba(255,255,255,.065);
+  --panel-strong: rgba(255,255,255,.095);
+  --text: #fbf7ff;
+  --muted: #b9a9c4;
+  --line: rgba(255,255,255,.12);
+
+  --purple: #6e24ff;
+  --purple-hot: #9b4dff;
+  --magenta: #ec3cff;
+  --gold: #b88724;
+  --gold-bright: #f0c85a;
+  --orange: #ff713d;
+  --cyan: #35e6ff;
+
+  --radius: 28px;
+  --max: 1240px;
+  --ease: cubic-bezier(.2,.75,.2,1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(70vw 55vw at 10% -5%, rgba(110,36,255,.30), transparent 65%),
+    radial-gradient(60vw 50vw at 100% 12%, rgba(236,60,255,.17), transparent 68%),
+    radial-gradient(55vw 45vw at 50% 90%, rgba(184,135,36,.10), transparent 70%),
+    linear-gradient(135deg, #0b0510 0%, #16081f 48%, #0d0613 100%);
+  font-family: "DM Sans", sans-serif;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: .18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, #000, transparent 88%);
+}
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { background: var(--gold-bright); color: #170b20; }
+
+.container { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+.display { font-family: "Space Grotesk", sans-serif; letter-spacing: -.065em; line-height: .88; }
+.eyebrow {
+  margin: 0 0 14px;
+  color: var(--gold-bright);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.muted { color: var(--muted); }
+.gold { color: var(--gold-bright); }
+
+/* ---------- Floating navigation ---------- */
+.nav-wrap {
+  position: fixed;
+  z-index: 100;
+  top: 18px;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+.nav {
+  width: min(1120px, calc(100% - 28px));
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 12px 10px 18px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  background: rgba(12,6,17,.70);
+  backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: 0 18px 60px rgba(0,0,0,.34);
+  pointer-events: auto;
+  transition: .35s var(--ease);
+}
+.nav.scrolled {
+  background: rgba(12,6,17,.91);
+  border-color: rgba(240,200,90,.24);
+  transform: translateY(-2px);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font: 700 .9rem "Space Grotesk", sans-serif;
+  letter-spacing: .07em;
+}
+.logo-mark {
+  width: 30px; height: 30px; border-radius: 10px;
+  display: grid; place-items: center;
+  color: #190b21;
+  background: linear-gradient(135deg, var(--gold-bright), #fff0a7);
+  box-shadow: 0 0 24px rgba(240,200,90,.20);
+}
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-links a {
+  padding: 9px 12px;
+  color: #d8cce0;
+  font-size: .8rem;
+  border-radius: 999px;
+  transition: .25s var(--ease);
+}
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,.07); }
+.nav-cta {
+  padding: 10px 17px;
+  border-radius: 999px;
+  background: var(--gold-bright);
+  color: #1a0b21;
+  font-weight: 800;
+  font-size: .8rem;
+  transition: .25s var(--ease);
+}
+.nav-cta:hover { transform: translateY(-2px) rotate(-1deg); box-shadow: 0 9px 28px rgba(240,200,90,.22); }
+
+/* ---------- Hero ---------- */
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 150px 0 90px;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 49.8%, rgba(255,255,255,.055) 50%, transparent 50.2%),
+    linear-gradient(transparent 0 49.8%, rgba(255,255,255,.04) 50%, transparent 50.2%);
+  background-size: 100% 100%, 100% 100%;
+  opacity: .35;
+}
+.blob {
+  position: absolute;
+  border-radius: 42% 58% 65% 35% / 42% 35% 65% 58%;
+  filter: blur(.2px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.blob.one {
+  width: 42vw; height: 42vw; max-width: 560px; max-height: 560px;
+  top: 14%; left: -8%;
+  background: radial-gradient(circle at 35% 30%, rgba(155,77,255,.55), rgba(110,36,255,.16) 48%, transparent 70%);
+  animation: morph 11s ease-in-out infinite alternate, drift 15s ease-in-out infinite alternate;
+}
+.blob.two {
+  width: 40vw; height: 40vw; max-width: 540px; max-height: 540px;
+  right: -9%; top: 23%;
+  background: radial-gradient(circle at 60% 40%, rgba(236,60,255,.42), rgba(255,113,61,.10) 50%, transparent 70%);
+  animation: morph 13s ease-in-out infinite alternate-reverse, drift 17s ease-in-out infinite alternate-reverse;
+}
+.blob.three {
+  width: 30vw; height: 30vw; max-width: 400px; max-height: 400px;
+  left: 43%; bottom: -18%;
+  background: radial-gradient(circle, rgba(240,200,90,.18), transparent 68%);
+  animation: pulse 8s ease-in-out infinite;
+}
+.hero-inner { position: relative; z-index: 2; text-align: center; }
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 26px;
+  padding: 8px 13px;
+  border: 1px solid rgba(240,200,90,.24);
+  border-radius: 999px;
+  background: rgba(255,255,255,.045);
+  color: #e5d9eb;
+  font-size: .73rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.kicker-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 18px var(--gold-bright);
+}
+.hero h1 {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.hero h1 .line-two {
+  display: block;
+  background: linear-gradient(100deg, #fff 0%, #e7d7ee 28%, var(--purple-hot) 57%, var(--magenta) 75%, var(--gold-bright) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 220% auto;
+  animation: gradientShift 7s linear infinite;
+}
+.hero-sub {
+  width: min(680px, 100%);
+  margin: 30px auto 0;
+  color: #c1b3c9;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.7;
+}
+.hero-actions {
+  display: flex; justify-content: center; gap: 12px;
+  margin-top: 34px; flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 48px; padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 800; font-size: .82rem;
+  transition: .3s var(--ease);
+}
+.btn-main {
+  color: #170b20;
+  background: linear-gradient(120deg, var(--gold-bright), #ffe89a);
+  box-shadow: 0 14px 38px rgba(240,200,90,.17);
+}
+.btn-main:hover { transform: translateY(-4px) rotate(-1deg); box-shadow: 0 20px 50px rgba(240,200,90,.25); }
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.045);
+  color: #fff;
+}
+.btn-ghost:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
+
+/* Floating visual card */
+.hero-object {
+  width: min(650px, 78vw);
+  aspect-ratio: 1.4;
+  margin: 65px auto 0;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: float 6s ease-in-out infinite;
+}
+.object-panel {
+  position: absolute; inset: 14%;
+  border-radius: 34px;
+  transform: rotate(-5deg);
+  border: 1px solid rgba(255,255,255,.15);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(155,77,255,.34), transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(240,200,90,.17), transparent 36%),
+    linear-gradient(135deg, rgba(57,18,78,.95), rgba(18,8,25,.96));
+  box-shadow: 0 35px 100px rgba(0,0,0,.48), inset 0 1px rgba(255,255,255,.12);
+  overflow: hidden;
+}
+.object-panel::before {
+  content:"BOLT / TITANS";
+  position:absolute; left:7%; top:9%;
+  color:rgba(255,255,255,.12);
+  font:700 clamp(1.6rem,5vw,4rem) "Space Grotesk",sans-serif;
+  letter-spacing:-.07em;
+}
+.object-core {
+  position: absolute; inset: 27% 22%;
+  border-radius: 26px;
+  background: linear-gradient(145deg,#271035,#0d0613);
+  border: 1px solid rgba(240,200,90,.25);
+  box-shadow: 0 20px 50px rgba(0,0,0,.45), 0 0 70px rgba(110,36,255,.20);
+  transform: rotate(7deg);
+}
+.object-core::before,.object-core::after {
+  content:""; position:absolute; border-radius:999px;
+}
+.object-core::before {
+  width:42%; height:12%; top:22%; left:12%;
+  background:linear-gradient(90deg,var(--gold-bright),var(--orange));
+  box-shadow: 0 0 28px rgba(240,200,90,.22);
+}
+.object-core::after {
+  width:24%; height:24%; right:12%; bottom:15%;
+  border:2px solid var(--purple-hot);
+  box-shadow:0 0 35px rgba(155,77,255,.34);
+}
+.shape {
+  position:absolute; border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+}
+.shape.s1 { width:72px;height:72px;left:5%;bottom:12%;background:linear-gradient(135deg,var(--magenta),var(--purple)); animation:spin 9s linear infinite; }
+.shape.s2 { width:42px;height:42px;right:8%;top:9%;background:var(--gold-bright); animation:drift 5s ease-in-out infinite alternate; }
+.shape.s3 { width:22px;height:22px;right:16%;bottom:5%;background:var(--cyan); box-shadow:0 0 28px rgba(53,230,255,.35); animation:pulse 3s infinite; }
+
+/* ---------- Marquee ---------- */
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.025);
+}
+.marquee-track {
+  width: max-content;
+  display: flex; gap: 34px;
+  padding: 16px 0;
+  animation: marquee 24s linear infinite;
+}
+.marquee span {
+  color: #d8c9df;
+  font-size: .77rem; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase;
+}
+.marquee b { color: var(--gold-bright); }
+
+/* ---------- Sections ---------- */
+section { position: relative; padding: 120px 0; }
+.section-head {
+  display: flex; justify-content: space-between; align-items: end; gap: 40px;
+  margin-bottom: 48px;
+}
+.section-head h2 {
+  margin: 0; max-width: 720px;
+  font-size: clamp(3rem,7vw,6.4rem);
+}
+.section-head p { max-width: 380px; line-height: 1.7; margin: 0; }
+
+/* About */
+.about-layout {
+  display:grid; grid-template-columns:1.05fr .95fr; gap:18px;
+}
+.big-card {
+  min-height: 460px; padding: 42px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);
+  background:
+    radial-gradient(circle at 80% 15%,rgba(236,60,255,.13),transparent 28%),
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+  box-shadow:var(--shadow);
+}
+.big-card h3 {
+  max-width: 600px; margin:0;
+  font-size:clamp(2.6rem,5vw,5rem);
+  line-height:.95;
+  letter-spacing:-.055em;
+  font-family:"Space Grotesk",sans-serif;
+}
+.number-row {
+  display:flex; gap:12px; flex-wrap:wrap; margin-top:80px;
+}
+.stat {
+  min-width:125px; padding:17px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px; background:rgba(0,0,0,.12);
+}
+.stat strong { display:block;font:700 1.5rem "Space Grotesk";color:var(--gold-bright); }
+.stat span { color:#a998b1;font-size:.72rem;text-transform:uppercase;letter-spacing:.10em; }
+.mini-stack { display:grid; gap:18px; }
+.mini-card {
+  min-height:calc(230px - 9px); padding:30px;
+  border:1px solid rgba(255,255,255,.11); border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(110,36,255,.13),rgba(255,255,255,.035));
+}
+.mini-card h3 { margin:8px 0 8px;font:700 1.7rem "Space Grotesk"; }
+.mini-card p { margin:0;line-height:1.65;color:#b5a7bc; }
+
+/* Team */
+.team-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+.team-card {
+  position:relative; min-height:260px; padding:28px;
+  overflow:hidden; border:1px solid rgba(255,255,255,.11);
+  border-radius:var(--radius);
+  background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+  transition:.4s var(--ease);
+}
+.team-card:hover { transform:translateY(-9px) rotate(-.5deg);border-color:rgba(240,200,90,.35); }
+.team-index { color:rgba(255,255,255,.25);font:700 .72rem "Space Grotesk"; }
+.avatar {
+  width:62px;height:62px;margin:32px 0 20px;border-radius:20px;
+  display:grid;place-items:center;
+  font:700 1rem "Space Grotesk";
+  color:#1b0b22;
+  background:linear-gradient(135deg,var(--gold-bright),#fff0a5);
+  box-shadow:0 12px 30px rgba(240,200,90,.12);
+}
+.team-card h3 { margin:0 0 8px;font:700 1.5rem "Space Grotesk";letter-spacing:-.035em; }
+.team-card p:last-child { margin:0;color:#aa9bad;font-size:.9rem;line-height:1.55; }
+.team-card::after {
+  content:"";position:absolute;width:130px;height:130px;right:-50px;bottom:-60px;
+  border-radius:50%;background:rgba(110,36,255,.20);filter:blur(5px);
+}
+
+/* Robot */
+.robot-section {
+  overflow:hidden;
+  background:
+    radial-gradient(50vw 40vw at 20% 20%,rgba(110,36,255,.22),transparent 70%),
+    radial-gradient(40vw 35vw at 90% 70%,rgba(240,200,90,.10),transparent 70%);
+}
+.robot-layout { display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center; }
+.robot-copy h2 { font-size:clamp(3.5rem,7vw,7rem);margin:0 0 24px; }
+.robot-copy > p { max-width:540px;font-size:1.05rem;line-height:1.75; }
+.specs { display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:34px; }
+.spec { padding:20px;border:1px solid rgba(255,255,255,.10);border-radius:20px;background:rgba(255,255,255,.035); }
+.spec strong { display:block;font:700 1.05rem "Space Grotesk";margin-bottom:5px; }
+.spec span { color:#a999b2;font-size:.78rem; }
+.robot-visual {
+  min-height:550px;position:relative;display:grid;place-items:center;
+}
+.ring { position:absolute;border:1px solid rgba(240,200,90,.22);border-radius:50%; }
+.r1 { width:82%;aspect-ratio:1;animation:spin 20s linear infinite; }
+.r2 { width:62%;aspect-ratio:1;border-color:rgba(155,77,255,.30);animation:spin 14s linear infinite reverse; }
+.r3 { width:42%;aspect-ratio:1;border-color:rgba(236,60,255,.20);animation:spin 9s linear infinite; }
+.robot-box {
+  width:48%;aspect-ratio:1.2;border-radius:30px;
+  border:1px solid rgba(240,200,90,.25);
+  background:linear-gradient(145deg,#321344,#110815);
+  box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 80px rgba(110,36,255,.20);
+  transform:rotate(-7deg);
+  position:relative;z-index:2;
+}
+.robot-box::before {
+  content:"BT";
+  position:absolute;inset:0;display:grid;place-items:center;
+  font:700 clamp(3rem,8vw,7rem) "Space Grotesk";
+  color:rgba(240,200,90,.15);
+}
+.robot-light {
+  position:absolute;left:15%;right:15%;top:28%;height:10px;
+  border-radius:999px;background:linear-gradient(90deg,var(--gold-bright),var(--magenta));
+  box-shadow:0 0 32px rgba(236,60,255,.34);
+}
+
+/* Updates */
+.update-grid { display:grid;grid-template-columns:1.3fr .7fr;gap:14px; }
+.update-feature,.update-card {
+  border:1px solid rgba(255,255,255,.11);border-radius:var(--radius);
+  overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+}
+.update-feature { min-height:430px;padding:38px;position:relative;display:flex;flex-direction:column;justify-content:end; }
+.update-feature::before {
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%,rgba(236,60,255,.28),transparent 34%),radial-gradient(circle at 25% 70%,rgba(110,36,255,.25),transparent 42%);
+}
+.update-feature > * { position:relative;z-index:1; }
+.update-feature h3 { margin:0;font:700 clamp(2.4rem,5vw,5rem) "Space Grotesk";letter-spacing:-.055em; }
+.update-feature p { max-width:580px;color:#b7a7bf;line-height:1.6; }
+.update-list { display:grid;gap:14px; }
+.update-card { padding:26px;min-height:130px; }
+.update-card h3 { margin:0 0 8px;font:700 1.25rem "Space Grotesk"; }
+.update-card p { margin:0;color:#aa9bad;line-height:1.55;font-size:.88rem; }
+
+/* MicroBionics */
+.bio {
+  padding:70px 0;
+}
+.bio-inner {
+  position:relative;overflow:hidden;padding:64px;
+  border-radius:36px;border:1px solid rgba(240,200,90,.23);
+  background:
+    radial-gradient(circle at 80% 20%,rgba(240,200,90,.18),transparent 25%),
+    radial-gradient(circle at 25% 90%,rgba(236,60,255,.20),transparent 32%),
+    linear-gradient(125deg,#30103e,#17091f 58%,#24102e);
+}
+.bio-inner h2 { margin:0;max-width:800px;font-size:clamp(3rem,7vw,7rem); }
+.bio-inner p { max-width:620px;color:#c5b5cc;line-height:1.7; }
+.bio-orb { position:absolute;width:260px;height:260px;right:-80px;bottom:-100px;border-radius:50%;background:linear-gradient(135deg,var(--gold-bright),var(--magenta));filter:blur(20px);opacity:.28;animation:pulse 7s infinite; }
+
+/* Journey */
+.journey-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:10px; }
+.journey-card { min-height:220px;padding:26px;border:1px solid rgba(255,255,255,.10);border-radius:24px;background:rgba(255,255,255,.035); }
+.journey-card span { color:var(--gold-bright);font:700 .75rem "Space Grotesk"; }
+.journey-card h3 { margin:65px 0 0;font:700 1.5rem "Space Grotesk"; }
+.journey-card p { color:#a99bad;font-size:.82rem;line-height:1.55; }
+
+/* Contact/footer */
+.contact {
+  text-align:center;
+  padding-bottom:80px;
+}
+.contact h2 { margin:0;font-size:clamp(4rem,10vw,9rem); }
+.contact p { max-width:560px;margin:24px auto;line-height:1.7; }
+.contact-links { display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px; }
+.contact-link { padding:12px 16px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:#d7c9df;background:rgba(255,255,255,.035);transition:.25s; }
+.contact-link:hover { border-color:rgba(240,200,90,.35);color:#fff;transform:translateY(-3px); }
+footer { padding:28px 0 38px;border-top:1px solid rgba(255,255,255,.09);color:#897991;font-size:.75rem; }
+.footer-row { display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap; }
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity:0;
+  transform:translateY(34px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease);
+}
+.reveal.visible { opacity:1;transform:none; }
+.reveal.delay-1 { transition-delay:.08s; }
+.reveal.delay-2 { transition-delay:.16s; }
+.reveal.delay-3 { transition-delay:.24s; }
+
+/* ---------- Motion ---------- */
+@keyframes morph {
+  0% { border-radius:42% 58% 65% 35% / 42% 35% 65% 58%; transform:rotate(0) scale(1); }
+  100% { border-radius:65% 35% 42% 58% / 55% 64% 36% 45%; transform:rotate(18deg) scale(1.08); }
+}
+@keyframes drift { from { translate:0 0; } to { translate:32px -24px; } }
+@keyframes float { 0%,100% { transform:translateY(0) rotateX(0); } 50% { transform:translateY(-12px) rotateX(2deg); } }
+@keyframes pulse { 0%,100% { transform:scale(.96);opacity:.65; } 50% { transform:scale(1.05);opacity:1; } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes marquee { to { transform:translateX(-50%); } }
+@keyframes gradientShift { to { background-position:220% center; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .nav-links a:nth-child(-n+3) { display:none; }
+  .about-layout,.robot-layout,.update-grid { grid-template-columns:1fr; }
+  .team-grid { grid-template-columns:repeat(2,1fr); }
+  .journey-grid { grid-template-columns:repeat(2,1fr); }
+  .robot-visual { min-height:460px; }
+}
+@media (max-width: 600px) {
+  .container { width:min(var(--max),calc(100% - 28px)); }
+  section { padding:82px 0; }
+  .nav { width:calc(100% - 18px);padding-left:12px; }
+  .nav-links { display:none; }
+  .nav-cta { padding:9px 13px; }
+  .hero { padding-top:120px; }
+  .hero h1 { font-size:clamp(4.2rem,20vw,7rem); }
+  .hero-sub { font-size:.95rem; }
+  .hero-object { width:96vw;margin-top:46px; }
+  .object-panel { inset:8%; }
+  .object-core { inset:27% 18%; }
+  .section-head { display:block; }
+  .section-head p { margin-top:18px; }
+  .big-card { min-height:410px;padding:28px; }
+  .number-row { margin-top:55px; }
+  .team-grid,.journey-grid,.specs { grid-template-columns:1fr; }
+  .robot-visual { min-height:360px; }
+  .robot-box { width:55%; }
+  .bio-inner { padding:38px 25px; }
+  .contact h2 { font-size:clamp(3.5rem,18vw,6rem); }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* Cross-page navigation accent */
+.nav-links a[href="robot-maze.html"]{color:var(--gold-bright)}
+</style>
+</head>
+
+<body>
+<!-- Floating glass navigation -->
+<div class="nav-wrap">
+  <nav class="nav" id="nav">
+    <a href="#top" class="logo" aria-label="Bolt Titans home">
+      <span class="logo-mark">BT</span>
+      BOLT TITANS
+    </a>
+    <div class="nav-links" aria-label="Primary navigation">
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#robot">Robot</a>
+      <a href="#updates">Updates</a>
+      <a href="#journey">Journey</a>
+      <a href="robot-maze.html">Play</a>
+    </div>
+    <a class="nav-cta" href="#contact">Let's build ↗</a>
+  </nav>
+</div>
+
+<main id="top">
+  <!-- =====================================================
+       HERO — oversized typography + moving gradient shapes
+       ===================================================== -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+
+    <div class="hero-inner container">
+      <div class="hero-kicker reveal visible">
+        <span class="kicker-dot"></span>
+        NRL 2026 · Bolt Titans
+      </div>
+
+      <h1 class="display reveal visible">
+        BUILD<br>
+        <span class="line-two">BOLD.</span>
+      </h1>
+
+      <p class="hero-sub reveal visible">
+        A student robotics team turning ideas into machines through engineering,
+        strategy, teamwork and a relentless builder mindset.
+      </p>
+
+      <div class="hero-actions reveal visible">
+        <a class="btn btn-main" href="robot-maze.html">Play Bolt Titans ↗</a>
+        <a class="btn btn-ghost" href="#team">Meet the team</a>
+      </div>
+
+      <!-- CSS-built kinetic visual: no external image dependency -->
+      <div class="hero-object" aria-hidden="true">
+        <div class="object-panel"></div>
+        <div class="object-core"><div class="robot-light"></div></div>
+        <div class="shape s1"></div>
+        <div class="shape s2"></div>
+        <div class="shape s3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infinite motion strip -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>ENGINEER <b>✦</b></span><span>BUILD <b>✦</b></span>
+      <span>TEST <b>✦</b></span><span>LEARN <b>✦</b></span>
+      <span>COMPETE <b>✦</b></span><span>REPEAT <b>✦</b></span>
+      <span>ENGINEER <b>✦</b></span><span>BUILD <b>✦</b></span>
+      <span>TEST <b>✦</b></span><span>LEARN <b>✦</b></span>
+      <span>COMPETE <b>✦</b></span><span>REPEAT <b>✦</b></span>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">01 / The team</p>
+          <h2 class="display">BUILT TO<br><span class="gold">MOVE.</span></h2>
+        </div>
+        <p>We combine mechanical thinking, electronics, software, strategy and creativity to turn a challenge into something we can actually build.</p>
+      </div>
+
+      <div class="about-layout">
+        <article class="big-card reveal">
+          <p class="eyebrow">Bolt Titans · NRL 2026</p>
+          <h3 class="display">One team.<br>Many ways to<br>make it work.</h3>
+          <div class="number-row">
+            <div class="stat"><strong>07</strong><span>Core members</span></div>
+            <div class="stat"><strong>01</strong><span>Shared mission</span></div>
+            <div class="stat"><strong>∞</strong><span>Ideas to test</span></div>
+          </div>
+        </article>
+
+        <div class="mini-stack">
+          <article class="mini-card reveal delay-1">
+            <p class="eyebrow">Mindset</p>
+            <h3>Prototype fast.</h3>
+            <p>Build, test, learn and refine. Progress comes from putting ideas into the real world.</p>
+          </article>
+          <article class="mini-card reveal delay-2">
+            <p class="eyebrow">Mission</p>
+            <h3>Make every iteration count.</h3>
+            <p>Every subsystem has a purpose — and every challenge becomes part of the journey.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">02 / People</p>
+          <h2 class="display">THE<br><span class="gold">TITANS.</span></h2>
+        </div>
+        <p>The people behind the machine, each bringing a different specialty to the same build.</p>
+      </div>
+
+      <div class="team-grid">
+        <article class="team-card reveal">
+      <div class="team-index">01</div>
+      <div class="avatar">AS</div>
+      <div class="team-copy">
+        <p class="eyebrow">Team Leader</p>
+        <h3>Anusha Saxena</h3>
+        <p>Documentation & Strategy Lead</p>
+      </div>
+    </article>
+<article class="team-card reveal">
+      <div class="team-index">02</div>
+      <div class="avatar">NJ</div>
+      <div class="team-copy">
+        <p class="eyebrow">The Driving Expert</p>
+        <h3>Nirvan Jain</h3>
+        <p>Driver & field operations</p>
+      </div>
+    </article>
+<article class="team-card reveal">
+      <div class="team-index">03</div>
+      <div class="avatar">MB</div>
+      <div class="team-copy">
+        <p class="eyebrow">The Drive Captain</p>
+        <h3>Manvik Biswal</h3>
+        <p>Drive systems & control</p>
+      </div>
+    </article>
+<article class="team-card reveal">
+      <div class="team-index">04</div>
+      <div class="avatar">TW</div>
+      <div class="team-copy">
+        <p class="eyebrow">The Electrical Expert</p>
+        <h3>Tirtha Watekar</h3>
+        <p>Electrical systems</p>
+      </div>
+    </article>
+<article class="team-card reveal">
+      <div class="team-index">05</div>
+      <div class="avatar">VD</div>
+      <div class="team-copy">
+        <p class="eyebrow">The Programmer</p>
+        <h3>Vaidik Deshmukh</h3>
+        <p>Software & robot logic</p>
+      </div>
+    </article>
+<article class="team-card reveal">
+      <div class="team-index">06</div>
+      <div class="avatar">AG</div>
+      <div class="team-copy">
+        <p class="eyebrow">The Concept Architect</p>
+        <h3>Aaryan Gundale</h3>
+        <p>Design & concepts</p>
+      </div>
+    </article>
+<article class="team-card reveal delay-1">
+      <div class="team-index">07</div>
+      <div class="avatar">AS</div>
+      <div class="team-copy">
+        <p class="eyebrow">The Electrical Engineer</p>
+        <h3>Aarav Shah</h3>
+        <p>Electrical engineering & integration</p>
+      </div>
+    </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Robot -->
+  <section id="robot" class="robot-section">
+    <div class="container">
+      <div class="robot-layout">
+        <div class="robot-copy reveal">
+          <p class="eyebrow">03 / Engineering</p>
+          <h2 class="display">ENGINEER<br><span class="gold">THE FUTURE.</span></h2>
+          <p>
+            The robot is where the team's ideas become physical. Mechanical design,
+            electronics, programming and strategy meet in one constantly evolving machine.
+          </p>
+          <div class="specs">
+            <div class="spec"><strong>Mechanical</strong><span>Structure & movement</span></div>
+            <div class="spec"><strong>Electronics</strong><span>Power & control</span></div>
+            <div class="spec"><strong>Software</strong><span>Logic & automation</span></div>
+            <div class="spec"><strong>Strategy</strong><span>Game-time decisions</span></div>
+          </div>
+        </div>
+
+        <div class="robot-visual reveal delay-1" aria-hidden="true">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+          <div class="robot-box"><div class="robot-light"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Updates -->
+  <section id="updates">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">04 / What's happening</p>
+          <h2 class="display">LATEST<br><span class="gold">MOTION.</span></h2>
+        </div>
+        <p>Follow the build as concepts become prototypes, prototypes become systems, and systems become competition-ready.</p>
+      </div>
+
+      <div class="update-grid">
+        <article class="update-feature reveal">
+          <p class="eyebrow">Featured update</p>
+          <h3 class="display">BOLT TITANS<br>ENTERS NRL 2026.</h3>
+          <p>The next chapter starts here — a season of designing, testing, learning and competing together.</p>
+        </article>
+
+        <div class="update-list">
+          <article class="update-card reveal delay-1">
+            <p class="eyebrow">01</p>
+            <h3>Prototype season begins</h3>
+            <p>Turning early concepts into physical ideas we can test.</p>
+          </article>
+          <article class="update-card reveal delay-2">
+            <p class="eyebrow">02</p>
+            <h3>Breaking down the challenge</h3>
+            <p>Strategy starts with understanding the problem from every angle.</p>
+          </article>
+          <article class="update-card reveal delay-3">
+            <p class="eyebrow">03</p>
+            <h3>Build. Test. Repeat.</h3>
+            <p>Every iteration gives the team something new to learn.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MicroBionics -->
+  <section class="bio">
+    <div class="container">
+      <div class="bio-inner reveal">
+        <p class="eyebrow">05 / Exploration</p>
+        <h2 class="display">MEET<br><span class="gold">MICROBIONICS.</span></h2>
+        <p>
+          An exploration into whether organic waste can become a useful source of electricity —
+          combining curiosity, sustainability and engineering into one project.
+        </p>
+        <a class="btn btn-main" href="microbionics.html">Explore MicroBionics ↗</a>
+        <div class="bio-orb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey -->
+  <section id="journey">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">06 / Our journey</p>
+          <h2 class="display">ONE BUILD<br><span class="gold">AT A TIME.</span></h2>
+        </div>
+        <p>Prototype → test → learn → refine. The process is part of the competition.</p>
+      </div>
+
+      <div class="journey-grid">
+        <article class="journey-card reveal"><span>01</span><h3>Imagine.</h3><p>Start with a problem and a possibility.</p></article>
+        <article class="journey-card reveal delay-1"><span>02</span><h3>Build.</h3><p>Give the idea a physical form.</p></article>
+        <article class="journey-card reveal delay-2"><span>03</span><h3>Test.</h3><p>Find what works — and what doesn't.</p></article>
+        <article class="journey-card reveal delay-3"><span>04</span><h3>Refine.</h3><p>Make the next version better.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <p class="eyebrow reveal">07 / Contact</p>
+      <h2 class="display reveal">LET'S<br><span class="gold">BUILD.</span></h2>
+      <p class="reveal">Want to follow Bolt Titans, collaborate, or see where the journey goes next?</p>
+      <div class="contact-links reveal">
+        <a class="contact-link" href="https://x.com/bolt_titans" target="_blank" rel="noopener">Twitter (X)</a>
+        <a class="contact-link" href="https://www.youtube.com/@BoltTitans" target="_blank" rel="noopener">YouTube</a>
+        <a class="contact-link" href="https://www.instagram.com/bolt_titans_official/" target="_blank" rel="noopener">Instagram</a>
+        <a class="contact-link" href="https://www.threads.com/@bolt_titans_official" target="_blank" rel="noopener">Threads</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <span>© 2026 Bolt Titans · NRL</span>
+    <span>ENGINEER · BUILD · TEST · LEARN</span>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   BOLT TITANS — INTERACTION LAYER
+   Small, dependency-free JavaScript for maintainability.
+   ========================================================= */
+
+const nav = document.getElementById("nav");
+
+/* Give the floating navigation a slightly stronger state after scrolling. */
+function updateNav() {
+  nav.classList.toggle("scrolled", window.scrollY > 40);
+}
+window.addEventListener("scroll", updateNav, { passive: true });
+updateNav();
+
+/* Scroll-reveal: elements animate only when they enter the viewport. */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+
+document.querySelectorAll(".reveal:not(.visible)").forEach((el) => revealObserver.observe(el));
+
+/* Subtle pointer movement on desktop — intentionally restrained. */
+const hero = document.querySelector(".hero");
+const object = document.querySelector(".hero-object");
+
+if (window.matchMedia("(pointer:fine)").matches && object) {
+  hero.addEventListener("pointermove", (event) => {
+    const x = (event.clientX / window.innerWidth - 0.5);
+    const y = (event.clientY / window.innerHeight - 0.5);
+    object.style.transform =
+      `translate(${x * 12}px, ${y * 8}px) rotateX(${-y * 2}deg) rotateY(${x * 3}deg)`;
+  });
+
+  hero.addEventListener("pointerleave", () => {
+    object.style.transform = "";
+  });
+}
+
+/* Prevent animated marquee from consuming motion-sensitive users' attention. */
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+if (reduceMotion.matches) {
+  document.documentElement.style.scrollBehavior = "auto";
+}
+</script>
+</body>
+</html>
