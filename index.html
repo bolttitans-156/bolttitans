@@ -568,12 +568,260 @@ footer { padding:28px 0 38px;border-top:1px solid rgba(255,255,255,.09);color:#8
   }
 }
 
+/* ---------- Playful interaction layer ---------- */
+.interaction-bar{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 20px}
+.filter-chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#d9cce2;padding:9px 14px;border-radius:999px;font:700 .76rem "DM Sans",sans-serif;cursor:pointer;transition:.25s var(--ease)}
+.filter-chip:hover,.filter-chip.active{background:var(--gold-bright);color:#1a0b21;border-color:var(--gold-bright);transform:translateY(-2px)}
+.team-card{cursor:pointer;transform-style:preserve-3d}
+.team-card:focus-visible,.filter-chip:focus-visible,.robot-console:focus-visible{outline:2px solid var(--gold-bright);outline-offset:4px}
+.team-card .tap-hint{display:block;margin-top:14px;color:var(--gold-bright);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.team-card .team-extra{max-height:0;opacity:0;overflow:hidden;color:#c7b7d0;font-size:.84rem;line-height:1.55;transition:max-height .35s ease,opacity .3s ease,margin .3s ease}
+.team-card.expanded .team-extra{max-height:80px;opacity:1;margin-top:10px}
+.team-card.expanded{border-color:rgba(240,200,90,.48);background:linear-gradient(145deg,rgba(110,36,255,.18),rgba(240,200,90,.07))}
+.robot-console{position:absolute;z-index:4;bottom:20px;left:50%;transform:translateX(-50%);border:1px solid rgba(240,200,90,.28);border-radius:999px;background:rgba(15,7,21,.82);color:#f4e9ff;padding:10px 15px;white-space:nowrap;font-size:.75rem;font-weight:800;cursor:pointer;backdrop-filter:blur(12px);transition:.25s}
+.robot-console:hover{color:#1a0b21;background:var(--gold-bright);transform:translateX(-50%) translateY(-3px)}
+.robot-status{position:absolute;top:22px;left:50%;transform:translateX(-50%);color:var(--gold-bright);font:700 .68rem "Space Grotesk",sans-serif;letter-spacing:.14em;white-space:nowrap}
+.spark-particle{position:fixed;z-index:150;pointer-events:none;font-size:18px;animation:sparkFly .8s ease-out forwards}
+@keyframes sparkFly{from{opacity:1;transform:translate(0,0) scale(.7) rotate(0)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.5) rotate(150deg)}}
+@media(max-width:600px){.robot-console{bottom:5px;font-size:.68rem}.interaction-bar{gap:6px}}
+@media(prefers-reduced-motion:reduce){.spark-particle{display:none}}
+
 /* Cross-page navigation accent */
 .nav-links a[href="robot-maze.html"]{color:var(--gold-bright)}
+
+
+/* ===== BOLT TITANS: JOY ENGINE — expressive motion + playful feedback ===== */
+:root{--spring:cubic-bezier(.16,1,.3,1);--bounce:cubic-bezier(.34,1.56,.64,1)}
+html{scroll-padding-top:100px}
+body{cursor:none}
+a,button,[role="button"],.team-card{cursor:none}
+/* Planetary cursor is supplied by the shared cross-page Joy Engine below. */
+/* Floating robot confetti on every pointer click. */
+.bt-party-particle{position:fixed;z-index:9998;left:0;top:0;pointer-events:none;will-change:transform,opacity;font-size:clamp(17px,2vw,28px);line-height:1;filter:drop-shadow(0 0 7px rgba(236,60,255,.35));animation:btPartyPop var(--life,950ms) var(--spring) forwards}
+.bt-party-particle::selection{background:transparent}
+@keyframes btPartyPop{0%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(.12) rotate(0deg)}12%{opacity:1;transform:translate(0,0) scale(1.25) rotate(35deg)}72%{opacity:1;transform:translate(var(--dx),var(--dy)) scale(1.05) rotate(var(--spin))}100%{opacity:0;transform:translate(var(--dx),calc(var(--dy) + 40px)) scale(.55) rotate(var(--spin))}}
+.bt-click-flash{position:fixed;z-index:9997;pointer-events:none;width:12px;height:12px;border-radius:50%;border:2px solid #f0c85a;box-shadow:0 0 22px #ec3cff;animation:btFlash .55s var(--spring) forwards}
+@keyframes btFlash{to{opacity:0;transform:translate(-50%,-50%) scale(9);border-width:0}}
+/* More generous motion: soft spring entrances, living cards, magnetic controls. */
+.hero-inner{animation:btHeroEnter 1.15s var(--spring) both}
+.hero-kicker{animation:btKicker 1.2s var(--spring) .18s both}
+.hero h1{animation:btTitleIn 1.25s var(--spring) .08s both;text-shadow:0 12px 70px rgba(155,77,255,.12)}
+.hero-sub{animation:btHeroEnter 1s var(--spring) .28s both}
+.hero-actions .btn{position:relative;overflow:hidden;isolation:isolate}
+.hero-actions .btn:after,.nav-cta:after,.contact-link:after{content:"";position:absolute;inset:-40% auto -40% -70%;width:45%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:rotate(20deg);transition:left .7s var(--spring);z-index:-1}
+.hero-actions .btn:hover:after,.nav-cta:hover:after,.contact-link:hover:after{left:130%}
+.team-card,.mini-card,.journey-card,.spec,.update-card,.bio-inner,.big-card{transform-style:preserve-3d;transition:transform .55s var(--spring),border-color .35s,box-shadow .4s,background .4s}
+.team-card:hover,.mini-card:hover,.journey-card:hover,.spec:hover,.update-card:hover{box-shadow:0 24px 70px rgba(0,0,0,.25),0 0 0 1px rgba(240,200,90,.08);border-color:rgba(240,200,90,.45)}
+.team-card .avatar{transition:transform .65s var(--bounce),box-shadow .4s}
+.team-card:hover .avatar{transform:translateY(-4px) rotate(-9deg) scale(1.09);box-shadow:0 14px 35px rgba(240,200,90,.24),0 0 30px rgba(236,60,255,.18)}
+.team-card.expanded .avatar{transform:rotate(8deg) scale(1.06)}
+.robot-box{animation:btRobotFloat 5s ease-in-out infinite;transition:box-shadow .35s}
+.robot-box:after{content:"🤖";position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(2.7rem,7vw,5.8rem);filter:drop-shadow(0 8px 18px #0007);animation:btBotBob 3.4s ease-in-out infinite}
+.robot-box:before{content:"BT";opacity:.5}
+.robot-light{animation:btScan 3.2s ease-in-out infinite alternate}
+@keyframes btScan{from{transform:translateY(-15px);opacity:.65}to{transform:translateY(95px);opacity:1}}
+@keyframes btRobotFloat{0%,100%{translate:0 0;rotate:-2deg}50%{translate:0 -13px;rotate:2deg}}
+@keyframes btBotBob{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -5px;rotate:3deg}}
+@keyframes btHeroEnter{from{opacity:0;translate:0 30px;filter:blur(8px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+@keyframes btTitleIn{from{opacity:0;translate:0 44px;scale:.94;filter:blur(12px)}to{opacity:1;translate:0 0;scale:1;filter:blur(0)}}
+@keyframes btKicker{from{opacity:0;scale:.75;rotate:-5deg}to{opacity:1;scale:1;rotate:0}}
+/* Hover states remain lively without a separate Turbo toggle. */
+/* Keep the effect graceful on touch screens and for reduced-motion settings. */
+@media(pointer:coarse){body,a,button,[role="button"],.team-card{cursor:auto}}
+@media(prefers-reduced-motion:reduce){body{cursor:auto}.bt-party-particle,.bt-click-flash{display:none!important}.hero-inner,.hero-kicker,.hero h1,.hero-sub{animation:none!important}.robot-box,.robot-box:after,.robot-light{animation:none!important}}
+
 </style>
+
+<style id="bt-joy-engine">
+/* BOLT TITANS JOY ENGINE — shared across every page */
+:root{--bt-lilac:#b9a0ff;--bt-cyan:#67f4ff;--bt-pink:#ff62d2;--bt-sun:#ffd96b}
+@media (pointer:fine){html.bt-cursor-on,html.bt-cursor-on body,html.bt-cursor-on body *{cursor:none!important}}
+#bt-cursor{position:fixed;left:0;top:0;width:38px;height:38px;z-index:2147483646;pointer-events:none;opacity:0;transform:translate3d(-100px,-100px,0);transition:opacity .2s ease;mix-blend-mode:screen;--bt-cursor-scale:1;filter:drop-shadow(0 0 8px #8d48ff88)}
+#bt-cursor .bt-core{position:absolute;left:11px;top:11px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff8c9 0 8%,#ffd96b 18%,#ff62d2 58%,#8d48ff 100%);box-shadow:inset -3px -3px 5px #451c77aa,0 0 12px #ff62d2,0 0 25px #8d48ff;}
+#bt-cursor .bt-ring{position:absolute;inset:4px -1px;border:1.5px solid var(--bt-cyan);border-radius:50%;transform:rotate(-28deg) scaleY(.62);box-shadow:0 0 12px #67f4ff66;animation:bt-cursor-spin 3.6s linear infinite}
+#bt-cursor .bt-ring:before{content:"";position:absolute;inset:-5px 3px;border:1px solid #ff62d2aa;border-radius:50%;transform:rotate(72deg) scaleY(.72)}
+#bt-cursor .bt-ring:after{content:"";position:absolute;width:7px;height:7px;right:0;top:0;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#ffd96b 45%,#ff8b42);box-shadow:0 0 8px var(--bt-sun),0 0 15px #ff62d2;}
+#bt-cursor.bt-hover .bt-ring{inset:0 -5px;border-color:var(--bt-pink);box-shadow:0 0 17px #ff62d288;animation-duration:1.5s}
+#bt-cursor.bt-down{--bt-cursor-scale:.72}
+@keyframes bt-cursor-spin{to{rotate:360deg}}
+.bt-click-burst{position:fixed;z-index:2147483645;left:0;top:0;width:1px;height:1px;pointer-events:none;}
+.bt-shockwave{position:absolute;width:18px;height:18px;left:-9px;top:-9px;border:2px solid var(--bt-sun);border-radius:50%;animation:bt-wave .62s cubic-bezier(.12,.7,.2,1) forwards;box-shadow:0 0 22px #ff62d277}
+@keyframes bt-wave{to{width:150px;height:150px;left:-75px;top:-75px;opacity:0;border-width:1px;transform:rotate(90deg)}}
+.bt-party-bit{position:absolute;left:0;top:0;font-size:var(--s,22px);line-height:1;filter:drop-shadow(0 0 7px #b77aff);animation:bt-fly var(--d,850ms) cubic-bezier(.12,.7,.25,1) forwards;will-change:transform,opacity}
+@keyframes bt-fly{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}12%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(var(--end-scale,.75)) rotate(var(--rot,240deg))}}
+.bt-tap-pop{animation:bt-tap-pop .42s cubic-bezier(.2,.9,.25,1)}
+@keyframes bt-tap-pop{0%{filter:brightness(1)}45%{filter:brightness(1.7) saturate(1.5)}100%{filter:brightness(1)}}
+/* More joyful depth and motion, while keeping each page's layout intact */
+@media (prefers-reduced-motion:no-preference){
+  a,button,[role=button],.nav-cta,.card,.member-card,.team-card{transition:transform .32s cubic-bezier(.2,.8,.2,1),filter .32s ease,box-shadow .32s ease,border-color .32s ease}
+  a:hover,button:hover,[role=button]:hover{filter:brightness(1.12)}
+  .nav-cta:hover,button:hover{box-shadow:0 10px 34px #a34cff38}
+  .bt-joy-glow{animation:bt-glow 4.8s ease-in-out infinite alternate}
+  @keyframes bt-glow{from{filter:drop-shadow(0 0 0 #a34cff00)}to{filter:drop-shadow(0 0 16px #a34cff35)}}
+}
+@media (pointer:coarse){#bt-cursor{display:none}}
+@media (prefers-reduced-motion:reduce){#bt-cursor .bt-ring{animation:none}.bt-party-bit{animation-duration:350ms!important}.bt-shockwave{animation-duration:300ms!important}}
+</style>
+<style id="bt-total-redesign">
+:root{--bt-scroll-progress:0%;--bt-neon:#b4ff66;--bt-coral:#ff765e;--bt-blue:#55e9ff;--bt-purple:#8b5cff;--bt-gold:#ffd66b;--ease:cubic-bezier(.16,1,.3,1)}
+html:before{content:"";position:fixed;z-index:9999;top:0;left:0;height:3px;width:var(--bt-scroll-progress);background:linear-gradient(90deg,#ff62d2,#8b5cff,#55e9ff,#ffd66b);box-shadow:0 0 16px #ff62d288;pointer-events:none}
+body{background:#0d0618;background-image:radial-gradient(ellipse at 14% 8%,#5924a955,transparent 38%),radial-gradient(ellipse at 92% 22%,#e53ab844,transparent 34%),radial-gradient(ellipse at 70% 70%,#1b9fc422,transparent 38%),linear-gradient(145deg,#0c0615,#190922 48%,#0a1020)!important}
+body:after{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:conic-gradient(from 0deg at 50% 50%,transparent,#8b5cff0d,transparent,#ff62d20d,transparent);filter:blur(55px);animation:bt-aurora 28s linear infinite}
+@keyframes bt-aurora{to{transform:rotate(360deg) scale(1.1)}}
+.nav{border-color:#ffffff26!important;background:linear-gradient(105deg,#1c1026e8,#130b20d9 60%,#2a1233e8)!important;box-shadow:0 18px 55px #0008,0 0 0 1px #ffffff08 inset,0 0 28px #a64dff12!important}
+.logo-mark{border-radius:12px!important;background:linear-gradient(135deg,#fff1a5,#ffd34d 55%,#ff9d60)!important;box-shadow:0 0 30px #ffd66b45!important;animation:bt-logo-float 4s ease-in-out infinite}
+@keyframes bt-logo-float{50%{transform:translateY(-3px) rotate(3deg)}}
+.nav-links a{transition:background .35s var(--ease),color .35s,transform .35s var(--ease)!important}.nav-links a:hover{background:linear-gradient(120deg,#8b5cff40,#ff62d226)!important;transform:translateY(-2px)}
+.nav-cta,.btn-main{background:linear-gradient(110deg,#ffd66b,#ffb56b 50%,#ff8dca)!important;color:#190b25!important;box-shadow:0 8px 32px #ffb45c22,0 0 0 1px #fff5 inset!important}
+.hero{min-height:100svh!important;padding-top:155px!important;isolation:isolate}
+.hero:before{content:"";position:absolute;inset:12% 8% 9%;border:1px solid #ffffff10;border-radius:48% 52% 44% 56%;transform:rotate(-8deg);box-shadow:0 0 0 25px #ffffff03,0 0 0 75px #a65aff05;animation:bt-hero-orbit 22s linear infinite;pointer-events:none}
+@keyframes bt-hero-orbit{to{transform:rotate(352deg)}}
+.hero-kicker{background:linear-gradient(100deg,#8b5cff24,#ff62d21c,#ffd66b18)!important;border-color:#ffffff26!important;box-shadow:0 0 35px #8b5cff14,inset 0 1px #ffffff18;animation:bt-kicker 5s ease-in-out infinite}
+@keyframes bt-kicker{50%{box-shadow:0 0 40px #ff62d226,inset 0 1px #ffffff25;transform:translateY(-3px)}}
+.hero h1{font-size:clamp(5.4rem,15.5vw,14rem)!important;letter-spacing:-.095em!important;text-shadow:0 10px 60px #8b5cff25}
+.hero h1 .line-two{background-image:linear-gradient(100deg,#fff4d4 0%,#ff9ee6 22%,#a18bff 46%,#62f0ff 68%,#ffe17b 88%,#fff4d4 100%)!important;background-size:300% auto!important;animation:bt-rainbow 9s ease-in-out infinite!important;filter:drop-shadow(0 8px 36px #a04cff30)}
+@keyframes bt-rainbow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-sub{color:#e0d4ec!important;max-width:720px!important;font-size:clamp(1rem,2vw,1.28rem)!important}
+.btn{border-radius:16px!important;padding:15px 22px!important;transition:transform .45s var(--ease),box-shadow .45s,filter .3s!important}.btn:hover{transform:translateY(-5px) scale(1.035) rotate(-.5deg)!important;box-shadow:0 18px 45px #8b5cff38!important}.btn-ghost{border-color:#ffffff35!important;background:#ffffff0b!important;backdrop-filter:blur(15px)}
+.hero-object{filter:drop-shadow(0 22px 45px #8b5cff45);animation:bt-object-float 7s ease-in-out infinite!important}.object-core{box-shadow:0 0 55px #a45cff55,inset 0 0 35px #ff62d233!important}.robot-light{filter:blur(2px);box-shadow:0 0 25px #55e9ff,0 0 60px #ff62d2!important}
+@keyframes bt-object-float{0%,100%{translate:0 0;rotate:-2deg}50%{translate:0 -16px;rotate:2deg}}
+.blob.one{background:radial-gradient(circle at 35% 30%,#a06bff88,#6e24ff30 48%,transparent 70%)!important}.blob.two{background:radial-gradient(circle at 60% 40%,#ff62d266,#ff713d20 50%,transparent 70%)!important}
+.marquee{background:linear-gradient(90deg,#ff62d2,#8b5cff 38%,#45dff3 70%,#ffd66b)!important;color:#140b21!important;transform:rotate(-1deg) scale(1.02);box-shadow:0 15px 45px #0004}.marquee-track{animation-duration:24s!important}.marquee b{color:#fff!important}
+section:not(.hero){position:relative;isolation:isolate}section:not(.hero):before{content:"";position:absolute;z-index:-1;inset:8% -20% auto;height:280px;background:radial-gradient(ellipse,#8b5cff0c,transparent 68%);pointer-events:none}
+section#about,section#team,section#robot,section#updates,section#journey,section#contact{padding-top:clamp(75px,9vw,130px)!important;padding-bottom:clamp(75px,9vw,130px)!important}
+.section-head h2{font-size:clamp(3.2rem,7.5vw,7rem)!important;letter-spacing:-.085em!important;text-shadow:0 8px 38px #8b5cff16}.gold{background:linear-gradient(100deg,#ffd66b,#ff9ccf 48%,#80eaff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.big-card,.mini-card,.team-card,.robot-visual,.update-card,.journey-card,.contact-card{border:1px solid #ffffff1c!important;background:linear-gradient(145deg,#ffffff10,#ffffff04 55%,#8b5cff0c)!important;box-shadow:0 20px 55px #00025,inset 0 1px #ffffff0b!important;backdrop-filter:blur(16px);transition:transform .55s var(--ease),border-color .4s,box-shadow .4s!important}
+.big-card{background:radial-gradient(circle at 100% 0%,#ff62d224,transparent 42%),linear-gradient(135deg,#39205a,#1b102c 58%,#21122e)!important;border-color:#c2a1ff35!important;overflow:hidden}
+.big-card:after{content:"✦";position:absolute;right:7%;top:7%;font-size:clamp(3rem,9vw,8rem);color:#ffd66b2b;animation:bt-sparkle 5s ease-in-out infinite;pointer-events:none}
+@keyframes bt-sparkle{50%{transform:rotate(45deg) scale(1.2);color:#ff62d255}}
+.mini-card:hover,.team-card:hover,.big-card:hover{border-color:#d2b4ff70!important;box-shadow:0 25px 70px #8b5cff22,0 0 0 1px #ffffff08 inset!important}
+.stat strong{background:linear-gradient(130deg,#fff,#ffd66b 55%,#ff8fd7);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.team-grid{gap:18px!important}.team-card{position:relative;overflow:hidden!important;border-radius:24px!important;min-height:245px;transform-style:preserve-3d}.team-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at calc(50% + var(--mx,0)*70%) calc(50% + var(--my,0)*70%),#a878ff30,transparent 55%);opacity:.7;pointer-events:none}.team-card:after{content:"";position:absolute;width:180px;height:180px;right:-100px;bottom:-115px;border-radius:50%;background:linear-gradient(135deg,#ff62d2,#ffd66b);filter:blur(42px);opacity:.15;transition:opacity .4s,transform .5s}.team-card:hover:after{opacity:.42;transform:translate(-20px,-18px)}
+.avatar{background:linear-gradient(135deg,#ffd66b,#ff9ccf 52%,#8b5cff)!important;color:#170b23!important;box-shadow:0 9px 30px #ff62d225!important;transition:transform .5s var(--ease)!important}.team-card:hover .avatar{transform:translateY(-4px) rotate(-7deg) scale(1.06)!important}
+.filter-chip{border-color:#ffffff25!important;background:#ffffff09!important;transition:all .35s var(--ease)!important}.filter-chip.active,.filter-chip:hover{background:linear-gradient(110deg,#8b5cff,#d64bdb)!important;border-color:transparent!important;color:#fff!important;box-shadow:0 8px 24px #8b5cff40}
+.robot-section{background:linear-gradient(115deg,#12091d00,#27103b60,#071a2760,#12091d00)!important}.robot-visual{border-radius:34px!important;background:radial-gradient(circle at 50% 45%,#8b5cff26,transparent 48%),linear-gradient(145deg,#201032,#100a1b)!important;overflow:hidden}.ring{border-color:#a98bff65!important;box-shadow:0 0 40px #8b5cff12!important}.ring.r1{animation-duration:17s!important}.ring.r2{animation-duration:24s!important}.robot-console{border-color:#ffffff2b!important;background:linear-gradient(100deg,#8b5cff,#ec3cff)!important;color:#fff!important;box-shadow:0 8px 32px #8b5cff35!important}
+.spec{border-color:#ffffff1a!important;background:#ffffff07!important;border-radius:16px!important;transition:transform .4s var(--ease),background .4s!important}.spec:hover{transform:translateY(-4px);background:#a16bff18!important}
+footer{border-color:#ffffff1c!important;background:linear-gradient(90deg,#0c0715,#1a0d29,#0c0715)!important}
+.bt-motion-ready{opacity:0;transform:translateY(28px) scale(.985);transition:opacity .8s var(--ease) var(--bt-delay,0ms),transform .8s var(--ease) var(--bt-delay,0ms)}.bt-motion-ready.bt-arrived{opacity:1;transform:translateY(0) scale(1)}
+.bt-pressed{transform:scale(.965)!important}
+@media(max-width:760px){.hero h1{font-size:clamp(4.6rem,18vw,8rem)!important}.hero:before{inset:17% 0 10%}.marquee{transform:none}.nav-links a{padding-inline:8px}.team-card{min-height:210px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.bt-motion-ready{opacity:1;transform:none;transition:none}}
+</style>
+
+<style id="bt-happiness-overdrive">
+:root{--bt-electric:#57f2ff;--bt-candy:#ff64d8;--bt-lemon:#ffe36a;--bt-violet:#a987ff}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background-size:160% 160%;animation:bt-bg-drift 24s ease-in-out infinite alternate}
+@keyframes bt-bg-drift{0%{background-position:0% 0%,100% 10%,50% 100%,0% 50%}100%{background-position:18% 12%,80% 28%,35% 78%,100% 50%}}
+body:after{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;opacity:.48;background:radial-gradient(ellipse at 12% 36%,#ff62d21c,transparent 24%),radial-gradient(ellipse at 84% 58%,#55e9ff1c,transparent 23%),radial-gradient(ellipse at 48% 4%,#ffd66b14,transparent 20%);filter:blur(20px);animation:bt-aurora-drift 18s ease-in-out infinite alternate}
+@keyframes bt-aurora-drift{0%{transform:translate3d(-2%,1%,0) rotate(-4deg) scale(.98)}100%{transform:translate3d(2%,-1%,0) rotate(5deg) scale(1.05)}}
+.bt-float-field{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict}
+.bt-floater{position:absolute;left:var(--x);top:var(--y);font-size:var(--size);opacity:var(--alpha,.2);filter:drop-shadow(0 0 12px #a987ff70);animation:bt-float-dance var(--duration,12s) ease-in-out var(--delay,0s) infinite alternate;will-change:transform}
+@keyframes bt-float-dance{0%{transform:translate3d(0,0,0) rotate(-12deg) scale(.88)}50%{transform:translate3d(var(--drift,22px),-28px,0) rotate(10deg) scale(1.12)}100%{transform:translate3d(calc(var(--drift,22px)*-1),18px,0) rotate(24deg) scale(.95)}}
+/* Push the visual language toward playful product-launch energy. */
+:is(.hero h1,h1,.section-head h2,.section-heading h2){text-wrap:balance}
+:is(.hero h1 .line-two,h1 span,.gold){background-size:260% 260%!important;animation:bt-prism-shift 7s ease-in-out infinite alternate!important}
+@keyframes bt-prism-shift{0%{background-position:0% 40%;filter:hue-rotate(0deg)}100%{background-position:100% 60%;filter:hue-rotate(12deg)}}
+:is(.team-card,.big-card,.mini-card,.card,.concept-note,.question-node,.robot-visual){transform-origin:center;transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .45s,border-color .45s,filter .45s!important}
+:is(.team-card,.big-card,.mini-card,.card,.concept-note,.question-node,.robot-visual):hover{filter:saturate(1.18) brightness(1.08);box-shadow:0 22px 65px #8b5cff2b,0 0 0 1px #ff62d236,inset 0 1px #ffffff1a!important}
+:is(button,.btn,.nav-cta,.back-link,[role=button]){position:relative;isolation:isolate;overflow:hidden}
+:is(button,.btn,.nav-cta,.back-link,[role=button]):before{content:"";position:absolute;z-index:-1;inset:-1px;background:linear-gradient(115deg,transparent 20%,#ffffff65 48%,transparent 72%);transform:translateX(-130%);transition:transform .65s cubic-bezier(.16,1,.3,1);pointer-events:none}
+:is(button,.btn,.nav-cta,.back-link,[role=button]):hover:before{transform:translateX(130%)}
+.bt-mega-burst{position:fixed;left:0;top:0;z-index:2147483645;pointer-events:none;width:1px;height:1px}
+.bt-mega-ring{position:absolute;width:16px;height:16px;left:-8px;top:-8px;border:2px solid #57f2ff;border-radius:50%;box-shadow:0 0 24px #ff64d8,0 0 48px #8b5cff;animation:bt-mega-ring .78s cubic-bezier(.1,.8,.2,1) forwards}
+@keyframes bt-mega-ring{to{width:190px;height:190px;left:-95px;top:-95px;opacity:0;border-width:1px;transform:rotate(90deg)}}
+.bt-mega-piece{position:absolute;left:0;top:0;font-size:var(--sz,24px);line-height:1;animation:bt-mega-launch var(--dur,950ms) cubic-bezier(.12,.75,.18,1) forwards;filter:drop-shadow(0 0 9px #b17bff);will-change:transform,opacity}
+@keyframes bt-mega-launch{0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(0)}12%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(var(--scale,.7)) rotate(var(--rot,420deg))}}
+.bt-confetti-strip{position:absolute;width:7px;height:17px;border-radius:2px;background:var(--color);animation:bt-strip-fly 1050ms cubic-bezier(.1,.75,.15,1) forwards;box-shadow:0 0 10px var(--color)}
+@keyframes bt-strip-fly{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.2)}12%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--rot)) scale(.8)}}
+.bt-joy-toast{position:fixed;z-index:2147483643;left:50%;bottom:24px;transform:translate(-50%,24px) scale(.9);opacity:0;pointer-events:none;padding:12px 18px;border:1px solid #ffffff32;border-radius:999px;background:linear-gradient(100deg,#32134aee,#171126ee);color:#fff;box-shadow:0 12px 40px #0008,0 0 30px #8b5cff30;font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.06em;transition:opacity .25s,transform .4s cubic-bezier(.16,1,.3,1)}.bt-joy-toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+@media(max-width:700px){.bt-floater{font-size:calc(var(--size)*.72)}.bt-joy-toast{bottom:14px;max-width:calc(100vw - 24px);text-align:center}}
+@media(prefers-reduced-motion:reduce){body,body:after{animation:none!important}.bt-floater{animation:none!important}.bt-mega-piece,.bt-confetti-strip,.bt-mega-ring{animation-duration:350ms!important}html{scroll-behavior:auto}}
+</style>
+
+<style id="bt-smooth-finish">
+/* Smooth, polished finish: no ambient floating emoji/object field. */
+.bt-float-field,.bt-floater{display:none!important}
+body{background-size:auto!important;animation:none!important}
+body:after{animation:bt-aurora-drift 28s cubic-bezier(.45,0,.55,1) infinite alternate!important;will-change:transform;filter:blur(26px)}
+html{scroll-behavior:smooth}
+:is(a,button,[role="button"],.team-card,.mini-card,.journey-card,.spec,.update-card,.big-card,.card,.concept-note,.question-node){transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s cubic-bezier(.2,.8,.2,1),border-color .32s ease,background-color .32s ease,filter .32s ease!important}
+#bt-cursor{width:42px!important;height:42px!important;opacity:0;mix-blend-mode:screen;filter:drop-shadow(0 0 9px #8b5cff80);will-change:transform;contain:layout style;}
+#bt-cursor .bt-core{left:13px!important;top:13px!important;width:16px!important;height:16px!important;background:radial-gradient(circle at 29% 23%,#fff 0 7%,#fff1a4 13%,#ffd45f 29%,#ff62d2 59%,#8b5cff 100%)!important;box-shadow:0 0 9px #ffd96b,0 0 18px #ff62d2,0 0 34px #8b5cff!important;animation:bt-planet-pulse 2.4s ease-in-out infinite;}
+#bt-cursor .bt-core:after{content:"";position:absolute;width:5px;height:5px;right:-3px;top:-2px;border-radius:50%;background:#67f4ff;box-shadow:0 0 8px #67f4ff,0 0 14px #67f4ff;}
+#bt-cursor .bt-ring{inset:5px -2px!important;border:1.4px solid #67f4ff!important;border-radius:50%;transform:rotate(-28deg) scaleY(.62);box-shadow:0 0 10px #67f4ff55;animation:bt-planet-orbit 3.8s linear infinite!important;}
+#bt-cursor .bt-ring:before{inset:-5px 1px!important;border:1px solid #ff62d2bb!important;transform:rotate(72deg) scaleY(.74)!important;border-radius:50%;}
+#bt-cursor .bt-ring:after{width:6px!important;height:6px!important;right:-1px!important;top:2px!important;background:radial-gradient(circle at 30% 25%,#fff,#ffd96b 48%,#ff8b42)!important;box-shadow:0 0 8px #ffd96b,0 0 16px #ff62d2!important;}
+#bt-cursor.bt-hover .bt-ring{inset:2px -5px!important;border-color:#ffe36a!important;box-shadow:0 0 15px #ff62d288,0 0 24px #67f4ff44!important;animation-duration:2s!important}
+#bt-cursor.bt-hover .bt-core{box-shadow:0 0 12px #ffd96b,0 0 24px #ff62d2,0 0 40px #8b5cff!important}
+#bt-cursor.bt-down{filter:drop-shadow(0 0 14px #ffd96b)!important}
+#bt-cursor.bt-down .bt-core{animation:none;transform:scale(.78)}
+@keyframes bt-planet-orbit{from{rotate:0deg}to{rotate:360deg}}
+@keyframes bt-planet-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+.bt-mega-ring{width:12px!important;height:12px!important;left:-6px!important;top:-6px!important;border-width:1.5px!important;box-shadow:0 0 14px #ff62d2,0 0 22px #8b5cff!important;animation:bt-compact-ring .42s cubic-bezier(.16,1,.3,1) forwards!important}
+@keyframes bt-compact-ring{to{width:62px;height:62px;left:-31px;top:-31px;opacity:0;border-width:1px;transform:scale(1.05)}}
+.bt-mega-piece{filter:drop-shadow(0 0 5px #b17bff)!important;will-change:transform,opacity}
+@keyframes bt-mega-launch{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(0)}18%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(var(--scale,.8)) rotate(var(--rot,120deg))}}
+@media(pointer:coarse){#bt-cursor{display:none!important}}
+@media(prefers-reduced-motion:reduce){body:after,#bt-cursor .bt-ring,#bt-cursor .bt-core{animation:none!important}.bt-mega-piece,.bt-mega-ring{animation-duration:220ms!important}html{scroll-behavior:auto}}
+</style>
+<style id="bt-flight-performance">
+/* Flight-performance pass: keep the atmosphere on the compositor and cursor instantly responsive. */
+body:after{filter:none!important;opacity:.34!important;will-change:transform;backface-visibility:hidden;}
+#bt-cursor{transition:opacity .12s linear!important;will-change:transform;backface-visibility:hidden;}
+#bt-cursor .bt-ring{transform:rotate(var(--bt-flight-angle,0deg)) scaleY(.62);will-change:transform;}
+#bt-cursor .bt-core{will-change:transform,box-shadow;}
+.bt-motion-ready{transition:opacity .48s cubic-bezier(.2,.7,.2,1),transform .58s cubic-bezier(.2,.7,.2,1)!important;}
+@media(prefers-reduced-motion:reduce){body:after{animation:none!important}}
+</style>
+<style id="bt-scroll-cinema-styles">
+/* Scroll-reactive cinematic story: generated project-stage artwork crossfades as the visitor scrolls. */
+.bt-scroll-cinema{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;isolation:isolate;opacity:.44;background:#0c0615;contain:paint}
+.bt-cinema-scene{position:absolute;inset:-2%;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transform:scale(1.045) translate3d(0,0,0);transition:opacity 950ms cubic-bezier(.16,1,.3,1),transform 1800ms cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
+.bt-cinema-scene.is-active{opacity:.68;transform:scale(1) translate3d(0,0,0)}
+.bt-cinema-scene[data-scene="spark"]{background-image:url("assets/journey-spark.jpg")}
+.bt-cinema-scene[data-scene="plan"]{background-image:url("assets/journey-plan.jpg")}
+.bt-cinema-scene[data-scene="build"]{background-image:url("assets/journey-build.jpg")}
+.bt-cinema-scene[data-scene="test"]{background-image:url("assets/journey-test.jpg")}
+.bt-cinema-scene[data-scene="compete"]{background-image:url("assets/journey-compete.jpg")}
+.bt-cinema-vignette{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,4,18,.42),rgba(10,4,18,.14) 38%,rgba(10,4,18,.52)),radial-gradient(ellipse at center,transparent 18%,rgba(8,3,14,.32) 100%)}
+.bt-cinema-sheen{position:absolute;inset:-35%;opacity:.24;background:linear-gradient(115deg,transparent 35%,rgba(103,244,255,.09) 46%,rgba(255,98,210,.1) 50%,transparent 62%);transform:translate3d(-18%,0,0) rotate(-5deg);animation:bt-cinema-sweep 15s cubic-bezier(.45,0,.55,1) infinite alternate;will-change:transform}
+@keyframes bt-cinema-sweep{to{transform:translate3d(18%,0,0) rotate(5deg)}}
+@media(prefers-reduced-motion:reduce){.bt-cinema-scene,.bt-cinema-sheen{transition:none;animation:none!important;transform:none!important}}
+</style>
+
+<style id="bt-story-timeline-styles">
+/* Scroll-story timeline: rich imagery, calm transitions, no floating clutter. */
+.bt-cinema-content-layer{position:relative;z-index:1;pointer-events:none}
+body> .nav-wrap, body>main, body>footer{position:relative;z-index:1}
+.bt-cinema-vignette{background:linear-gradient(180deg,rgba(9,3,18,.66),rgba(9,3,18,.35) 42%,rgba(9,3,18,.78)),radial-gradient(ellipse at center,transparent 12%,rgba(8,3,14,.48) 100%)}
+.bt-cinema-sheen{opacity:.12;animation-duration:24s}
+#journey{position:relative;isolation:isolate;overflow:hidden}
+#journey:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(13,6,19,.8),rgba(13,6,19,.42) 20%,rgba(13,6,19,.7));pointer-events:none}
+.bt-story-intro{max-width:680px;margin:0 0 36px;color:#d4c5df;font-size:1.04rem;line-height:1.7}
+.bt-story-chip{display:inline-flex;border:1px solid #f0c85a70;border-radius:999px;padding:8px 13px;margin-bottom:12px;color:#f0c85a;font:700 .7rem "Space Grotesk",sans-serif;letter-spacing:.16em}
+.bt-story-timeline{position:relative;display:grid;gap:clamp(24px,4vw,54px);padding:10px 0 22px}
+.bt-story-timeline:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:2px;transform:translateX(-50%);background:linear-gradient(180deg,#ec3cff,#f0c85a 48%,#35e6ff);opacity:.72;box-shadow:0 0 18px #9b4dff66}
+.bt-story-step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:clamp(24px,5vw,72px);align-items:center;position:relative}
+.bt-story-step.reverse{grid-template-columns:minmax(0,.82fr) minmax(0,1fr)}
+.bt-story-step.reverse .bt-story-image{order:2}.bt-story-step.reverse .bt-story-copy{order:1;text-align:right}
+.bt-story-image{height:clamp(220px,30vw,390px);position:relative;overflow:hidden;border-radius:26px;border:1px solid #cba7ff55;background:#150a24;box-shadow:0 22px 65px #0007,0 0 35px #7d2cff1b;transform:translateZ(0)}
+.bt-story-image:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0d0613a8,transparent 58%),linear-gradient(120deg,#8b5cff1c,transparent 48%,#f0c85a18);pointer-events:none}
+.bt-story-image img{width:100%;height:100%;display:block;object-fit:cover;transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .7s ease;filter:saturate(1.12) contrast(1.04)}
+.bt-story-step:hover .bt-story-image img{transform:scale(1.045);filter:saturate(1.24) contrast(1.06)}
+.bt-story-index{position:absolute;z-index:1;left:18px;top:18px;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:#160a25d9;border:1px solid #f0c85a;color:#f0c85a;font:700 1.1rem "Space Grotesk",sans-serif;box-shadow:0 0 22px #f0c85a38}
+.bt-story-copy{padding:12px 0}.bt-story-kicker{color:#d76bff;font:700 .74rem "Space Grotesk",sans-serif;letter-spacing:.16em}.bt-story-copy h3{font:700 clamp(1.55rem,3vw,2.45rem) "Space Grotesk",sans-serif;line-height:1.1;margin:13px 0 12px;color:#fff}.bt-story-copy p{color:#c4b5d0;line-height:1.75;max-width:480px;margin:0 0 18px}.bt-story-step.reverse .bt-story-copy p{margin-left:auto}.bt-story-tag{display:inline-flex;border:1px solid #a77aff55;border-radius:999px;padding:8px 12px;color:#f0c85a;font-size:.75rem;background:#6e24ff14}
+.bt-story-step:before{content:"";position:absolute;z-index:2;left:calc(50% - 7px);top:50%;width:12px;height:12px;border-radius:50%;background:#f0c85a;box-shadow:0 0 0 6px #f0c85a20,0 0 24px #f0c85a;transform:translate(-50%,-50%)}
+@media(max-width:760px){.bt-story-timeline{gap:28px}.bt-story-timeline:before{left:10px}.bt-story-step,.bt-story-step.reverse{grid-template-columns:1fr;gap:16px;padding-left:28px}.bt-story-step.reverse .bt-story-image,.bt-story-step.reverse .bt-story-copy{order:initial;text-align:left}.bt-story-step:before{left:10px;top:30px}.bt-story-image{height:230px;border-radius:20px}.bt-story-step.reverse .bt-story-copy p{margin-left:0}.bt-story-copy h3{font-size:1.65rem}.bt-scroll-cinema{opacity:.27}}
+@media(prefers-reduced-motion:reduce){.bt-story-image img{transition:none}.bt-story-step:hover .bt-story-image img{transform:none}}
+</style>
+
 </head>
 
 <body>
+<div class="bt-scroll-cinema" aria-hidden="true"><div class="bt-cinema-scene is-active" data-scene="spark"></div><div class="bt-cinema-scene" data-scene="plan"></div><div class="bt-cinema-scene" data-scene="build"></div><div class="bt-cinema-scene" data-scene="test"></div><div class="bt-cinema-scene" data-scene="compete"></div><div class="bt-cinema-vignette"></div><div class="bt-cinema-sheen"></div></div>
+
+<div class="bt-cinema-content-layer" aria-hidden="true"></div>
 <!-- Floating glass navigation -->
 <div class="nav-wrap">
   <nav class="nav" id="nav">
@@ -697,68 +945,75 @@ footer { padding:28px 0 38px;border-top:1px solid rgba(255,255,255,.09);color:#8
         <p>The people behind the machine, each bringing a different specialty to the same build.</p>
       </div>
 
+      <div class="interaction-bar reveal" role="group" aria-label="Filter team members">
+        <button class="filter-chip active" type="button" data-filter="all" aria-pressed="true">Everyone · 7</button>
+        <button class="filter-chip" type="button" data-filter="design" aria-pressed="false">Design & Build</button>
+        <button class="filter-chip" type="button" data-filter="tech" aria-pressed="false">Code & Electrical</button>
+        <button class="filter-chip" type="button" data-filter="drive" aria-pressed="false">Drive & Strategy</button>
+      </div>
+      <p class="team-filter-note muted" aria-live="polite" style="font-size:.8rem;margin:-6px 0 16px">Tap a card to reveal its role focus. Filter the crew to explore.</p>
       <div class="team-grid">
-        <article class="team-card reveal">
+        <article class="team-card reveal" data-category="drive" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">01</div>
       <div class="avatar">AS</div>
       <div class="team-copy">
         <p class="eyebrow">Team Leader</p>
         <h3>Anusha Saxena</h3>
-        <p>Documentation & Strategy Lead</p>
+        <p>Documentation & Strategy Lead</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Keeps the team organised, focused, and moving toward the goal.</div>
       </div>
     </article>
-<article class="team-card reveal">
+<article class="team-card reveal" data-category="drive" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">02</div>
       <div class="avatar">NJ</div>
       <div class="team-copy">
         <p class="eyebrow">The Driving Expert</p>
         <h3>Nirvan Jain</h3>
-        <p>Driver & field operations</p>
+        <p>Driver & field operations</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Focus: confident driving, field awareness, and control.</div>
       </div>
     </article>
-<article class="team-card reveal">
+<article class="team-card reveal" data-category="design" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">03</div>
       <div class="avatar">MB</div>
       <div class="team-copy">
         <p class="eyebrow">The Designer</p>
         <h3>Manvik Biswal</h3>
-        <p>Design & visual development</p>
+        <p>Design & visual development</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Turns ideas into a clear visual identity and polished designs.</div>
       </div>
     </article>
-<article class="team-card reveal">
+<article class="team-card reveal" data-category="design" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">04</div>
       <div class="avatar">TW</div>
       <div class="team-copy">
         <p class="eyebrow">Mechanical Lead</p>
         <h3>Tirtha Watekar</h3>
-        <p>Mechanical design & build coordination</p>
+        <p>Mechanical design & build coordination</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Focus: structure, mechanisms, assembly, and iteration.</div>
       </div>
     </article>
-<article class="team-card reveal">
+<article class="team-card reveal" data-category="tech" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">05</div>
       <div class="avatar">VD</div>
       <div class="team-copy">
         <p class="eyebrow">The Programmer</p>
         <h3>Vaidik Deshmukh</h3>
-        <p>Software & robot logic</p>
+        <p>Software & robot logic</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Builds the instructions and logic that help the robot act.</div>
       </div>
     </article>
-<article class="team-card reveal">
+<article class="team-card reveal" data-category="design" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">06</div>
       <div class="avatar">AG</div>
       <div class="team-copy">
         <p class="eyebrow">The Concept Architect</p>
         <h3>Aaryan Gundale</h3>
-        <p>Design & concepts</p>
+        <p>Design & concepts</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Explores concepts and helps shape ideas into workable plans.</div>
       </div>
     </article>
-<article class="team-card reveal delay-1">
+<article class="team-card reveal delay-1" data-category="tech" tabindex="0" role="button" aria-expanded="false">
       <div class="team-index">07</div>
       <div class="avatar">AS</div>
       <div class="team-copy">
         <p class="eyebrow">The Electrical Engineer</p>
         <h3>Aarav Shah</h3>
-        <p>Electrical engineering & integration</p>
+        <p>Electrical engineering & integration</p><span class="tap-hint">＋ Tap to explore</span><div class="team-extra">Focus: electrical systems, connections, and subsystem integration.</div>
       </div>
     </article>
       </div>
@@ -784,11 +1039,13 @@ footer { padding:28px 0 38px;border-top:1px solid rgba(255,255,255,.09);color:#8
           </div>
         </div>
 
-        <div class="robot-visual reveal delay-1" aria-hidden="true">
+        <div class="robot-visual reveal delay-1">
+          <div class="robot-status" id="robotStatus" aria-live="polite">SYSTEM STATUS · READY</div>
           <div class="ring r1"></div>
           <div class="ring r2"></div>
           <div class="ring r3"></div>
           <div class="robot-box"><div class="robot-light"></div></div>
+          <button class="robot-console" id="robotConsole" type="button">⚡ Run system check</button>
         </div>
       </div>
     </div>
@@ -860,11 +1117,13 @@ footer { padding:28px 0 38px;border-top:1px solid rgba(255,255,255,.09);color:#8
         <p>Prototype → test → learn → refine. The process is part of the competition.</p>
       </div>
 
-      <div class="journey-grid">
-        <article class="journey-card reveal"><span>01</span><h3>Imagine.</h3><p>Start with a problem and a possibility.</p></article>
-        <article class="journey-card reveal delay-1"><span>02</span><h3>Build.</h3><p>Give the idea a physical form.</p></article>
-        <article class="journey-card reveal delay-2"><span>03</span><h3>Test.</h3><p>Find what works — and what doesn't.</p></article>
-        <article class="journey-card reveal delay-3"><span>04</span><h3>Refine.</h3><p>Make the next version better.</p></article>
+      <div class="bt-story-intro reveal"><span class="bt-story-chip">THE MAKING OF A MISSION</span><p>Scroll through the work behind the wheels — every sketch, late-night fix, test run, and breakthrough.</p></div>
+      <div class="bt-story-timeline" aria-label="Bolt Titans project timeline">
+        <article class="bt-story-step reveal" data-story="spark"><div class="bt-story-image"><img src="assets/journey-spark.jpg" alt="Early robot concept sketches and the first spark of an idea" loading="lazy"><span class="bt-story-index">01</span></div><div class="bt-story-copy"><span class="bt-story-kicker">THE SPARK · IMAGINE</span><h3>It starts with a question.</h3><p>A rough sketch, a wild possibility, and seven minds asking how an idea could become something real.</p><span class="bt-story-tag">Curiosity becomes a plan</span></div></article>
+        <article class="bt-story-step reverse reveal" data-story="plan"><div class="bt-story-image"><img src="assets/journey-plan.jpg" alt="Robot CAD design on a screen as the team plans its build" loading="lazy"><span class="bt-story-index">02</span></div><div class="bt-story-copy"><span class="bt-story-kicker">THE PLAN · DESIGN</span><h3>Draw it. Model it. Rethink it.</h3><p>We turn ideas into sketches, layouts, code, and design decisions — figuring out how every part should work together.</p><span class="bt-story-tag">Blueprints become a build</span></div></article>
+        <article class="bt-story-step reveal" data-story="build"><div class="bt-story-image"><img src="assets/journey-build.jpg" alt="Hands carefully assembling the robot frame, wheels, wiring and components" loading="lazy"><span class="bt-story-index">03</span></div><div class="bt-story-copy"><span class="bt-story-kicker">THE BUILD · MAKE</span><h3>Small parts. Serious teamwork.</h3><p>Fasteners, wiring, wheels, sensors, and patient problem-solving. Progress is made one careful adjustment at a time.</p><span class="bt-story-tag">Teamwork takes shape</span></div></article>
+        <article class="bt-story-step reverse reveal" data-story="test"><div class="bt-story-image"><img src="assets/journey-test.jpg" alt="Code and system testing while the team checks robot behaviour" loading="lazy"><span class="bt-story-index">04</span></div><div class="bt-story-copy"><span class="bt-story-kicker">THE TEST · ITERATE</span><h3>Break it. Learn. Improve.</h3><p>Not every run works first time. We debug, test sensors, tune the system, and use each failure to build a better version.</p><span class="bt-story-tag">Every fix moves us forward</span></div></article>
+        <article class="bt-story-step reveal" data-story="compete"><div class="bt-story-image"><img src="assets/journey-compete.jpg" alt="The robot ready for the competition arena after many rounds of work" loading="lazy"><span class="bt-story-index">05</span></div><div class="bt-story-copy"><span class="bt-story-kicker">THE COMPETE · IMPACT</span><h3>Built by us. Ready for the arena.</h3><p>Every idea, build session, and test leads toward NRL 2026 — a chance to put our hard work into motion.</p><span class="bt-story-tag">Seven minds. One mission.</span></div></article>
       </div>
     </div>
   </section>
@@ -936,11 +1195,222 @@ if (window.matchMedia("(pointer:fine)").matches && object) {
   });
 }
 
+/* Team explorer: filter the roster and expand a card for its focus. */
+const teamCards = [...document.querySelectorAll('.team-card[data-category]')];
+const filterButtons = [...document.querySelectorAll('.filter-chip[data-filter]')];
+filterButtons.forEach(button => button.addEventListener('click', () => {
+  const filter = button.dataset.filter;
+  filterButtons.forEach(item => {
+    const active = item === button;
+    item.classList.toggle('active', active);
+    item.setAttribute('aria-pressed', String(active));
+  });
+  teamCards.forEach(card => {
+    const show = filter === 'all' || card.dataset.category === filter;
+    card.hidden = !show;
+    if (!show) { card.classList.remove('expanded'); card.setAttribute('aria-expanded','false'); }
+  });
+  const note = document.querySelector('.team-filter-note');
+  const count = teamCards.filter(card => !card.hidden).length;
+  note.textContent = filter === 'all' ? 'Tap a card to reveal its role focus. Filter the crew to explore.' : `${count} team member${count === 1 ? '' : 's'} in this focus group. Tap a card to learn more.`;
+}));
+function toggleTeamCard(card) {
+  const expanded = card.classList.toggle('expanded');
+  card.setAttribute('aria-expanded', String(expanded));
+  const hint = card.querySelector('.tap-hint');
+  if (hint) hint.textContent = expanded ? '− Tap to close' : '＋ Tap to explore';
+}
+teamCards.forEach(card => {
+  card.addEventListener('click', event => { if (!event.target.closest('a,button')) toggleTeamCard(card); });
+  card.addEventListener('keydown', event => {
+    if (event.target === card && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); toggleTeamCard(card); }
+  });
+});
+
+/* Compact spark feedback for the robot diagnostic control. */
+function sparkBurst(x, y) {
+  if (reduceMotion.matches) return;
+  const symbols = ['✦','⚡','✧','◆'];
+  for (let i = 0; i < 6; i++) {
+    const particle = document.createElement('span'); particle.className = 'spark-particle'; particle.textContent = symbols[i % symbols.length];
+    particle.style.left = `${x}px`; particle.style.top = `${y}px`;
+    particle.style.setProperty('--dx', `${Math.cos(i * Math.PI / 3) * (28 + Math.random() * 24)}px`);
+    particle.style.setProperty('--dy', `${Math.sin(i * Math.PI / 3) * (28 + Math.random() * 24)}px`);
+    particle.style.color = i % 2 ? '#f0c85a' : '#ec3cff'; document.body.appendChild(particle);
+    particle.addEventListener('animationend', () => particle.remove(), { once: true });
+  }
+}
+
+/* Click the robot console to cycle through a tiny simulated diagnostic. */
+const robotConsole = document.getElementById('robotConsole');
+const robotStatus = document.getElementById('robotStatus');
+const diagnostics = [
+  ['SYSTEM STATUS · READY', '⚡ Run system check'],
+  ['MOTORS · CHECKED', '↻ Check electronics'],
+  ['ELECTRONICS · ONLINE', '⌁ Test drive mode'],
+  ['DRIVE SYSTEM · GO!', '✓ Run system check']
+];
+let diagnosticIndex = 0;
+robotConsole.addEventListener('click', event => {
+  diagnosticIndex = (diagnosticIndex + 1) % diagnostics.length;
+  robotStatus.textContent = diagnostics[diagnosticIndex][0];
+  robotConsole.textContent = diagnostics[diagnosticIndex][1];
+  const box = document.querySelector('.robot-box');
+  box.animate([{transform:'rotate(-7deg) scale(1)'},{transform:'rotate(0deg) scale(1.06)'},{transform:'rotate(-7deg) scale(1)'}], {duration:500,easing:'ease-out'});
+  sparkBurst(event.clientX, event.clientY);
+});
+
 /* Prevent animated marquee from consuming motion-sensitive users' attention. */
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 if (reduceMotion.matches) {
   document.documentElement.style.scrollBehavior = "auto";
 }
+
+
+/* Joy engine: animated cursor, spring-follow, and robotics party-burst on every click. */
+(() => {
+  const finePointer = matchMedia('(pointer:fine)').matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lastBurst = 0;
+  const party = ['🤖','⚙️','🔩','🛠️','⚡','🦾','🛰️','💥','🔧','✨','🧲','🚀'];
+  function robotParty(x,y){
+    if(reduce) return;
+    const now=performance.now();
+    if(now-lastBurst<75) return;
+    lastBurst=now;
+    const flash=document.createElement('i'); flash.className='bt-click-flash';
+    flash.style.left=x+'px';flash.style.top=y+'px';flash.style.transform='translate(-50%,-50%)';document.body.appendChild(flash);
+    flash.addEventListener('animationend',()=>flash.remove(),{once:true});
+    const count=window.innerWidth<600?10:16;
+    for(let i=0;i<count;i++){
+      const p=document.createElement('span');p.className='bt-party-particle';
+      p.textContent=party[Math.floor(Math.random()*party.length)];
+      p.style.left=x+'px';p.style.top=y+'px';
+      const a=(Math.PI*2*i/count)+(Math.random()-.5)*.42;
+      const distance=65+Math.random()*105;
+      p.style.setProperty('--sx','0px');p.style.setProperty('--sy','0px');
+      p.style.setProperty('--dx',Math.cos(a)*distance+'px');p.style.setProperty('--dy',Math.sin(a)*distance+'px');
+      p.style.setProperty('--spin',(Math.random()*420-210)+'deg');p.style.setProperty('--life',(680+Math.random()*430)+'ms');
+      document.body.appendChild(p);p.addEventListener('animationend',()=>p.remove(),{once:true});
+    }
+  }
+  document.addEventListener('click',e=>robotParty(e.clientX || innerWidth/2,e.clientY || innerHeight/2),{passive:true});
+  /* Gentle 3D tilt follows the pointer, but always returns to rest. */
+  if(finePointer && !reduce){
+    document.querySelectorAll('.team-card,.mini-card,.journey-card,.spec,.update-card').forEach(card=>{
+      card.addEventListener('pointermove',e=>{
+        const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        if(card.classList.contains('expanded')) return;
+        card.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-3px)`;
+      });
+      card.addEventListener('pointerleave',()=>{card.style.transform='';});
+    });
+    document.querySelectorAll('.btn,.nav-cta,.contact-link').forEach(el=>{
+      el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.08}px,${(e.clientY-r.top-r.height/2)*.10}px)`;});
+      el.addEventListener('pointerleave',()=>{el.style.transform='';});
+    });
+  }
+})();
+
 </script>
+
+<script id="bt-planet-cursor-engine">
+(()=>{
+ const boot=()=>{
+  if(document.getElementById('bt-cursor')) return;
+  const fine=matchMedia('(pointer:fine)').matches;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cursor=document.createElement('div');cursor.id='bt-cursor';cursor.setAttribute('aria-hidden','true');
+  cursor.innerHTML='<span class="bt-ring"></span><span class="bt-core"></span>';
+  document.body.appendChild(cursor);
+  if(!fine)return;
+  document.documentElement.classList.add('bt-cursor-on');
+  let x=-100,y=-100,tx=-100,ty=-100,raf=0,px=0,py=0;
+  const draw=()=>{
+   // High-response exponential easing: keeps the planetary cursor gliding without dragging behind the pointer.
+   const ease=reduce?1:.86;
+   x+=(tx-x)*ease;y+=(ty-y)*ease;
+   const dx=tx-px,dy=ty-py;px=tx;py=ty;
+   cursor.style.transform=`translate3d(${x-21}px,${y-21}px,0)`;
+   cursor.style.setProperty('--bt-flight-angle',`${Math.max(-18,Math.min(18,dx*.45))}deg`);
+   if(Math.abs(tx-x)+Math.abs(ty-y)>.35) raf=requestAnimationFrame(draw); else raf=0;
+  };
+  const move=e=>{tx=e.clientX;ty=e.clientY;cursor.style.opacity='1';if(!raf)raf=requestAnimationFrame(draw)};
+  window.addEventListener('pointermove',move,{passive:true});
+  window.addEventListener('pointerdown',()=>cursor.classList.add('bt-down'),{passive:true});
+  window.addEventListener('pointerup',()=>cursor.classList.remove('bt-down'),{passive:true});
+  window.addEventListener('blur',()=>cursor.style.opacity='0');
+  window.addEventListener('focus',()=>cursor.style.opacity='1');
+  document.addEventListener('pointerover',e=>cursor.classList.toggle('bt-hover',!!e.target.closest('a,button,[role="button"],input,select,textarea,label,[tabindex]')),{passive:true});
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
+</script>
+
+<script id="bt-motion-engine">
+(()=>{
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const fine=matchMedia('(pointer:fine)').matches;
+ // Smooth reveal choreography
+ const revealTargets=document.querySelectorAll('.reveal, section, .card, .team-card, .mini-card, .big-card, .spec, .concept-note, .question-node');
+ if('IntersectionObserver' in window && !reduced){
+   const io=new IntersectionObserver(entries=>entries.forEach((entry,i)=>{if(entry.isIntersecting){entry.target.classList.add('bt-arrived');io.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -35px 0px'});
+   revealTargets.forEach((el,i)=>{if(!el.classList.contains('hero') && !el.classList.contains('bt-arrived')){el.classList.add('bt-motion-ready');el.style.setProperty('--bt-delay',Math.min(i%7,6)*55+'ms');io.observe(el)}});
+ }
+ // Soft pointer-driven depth on large decorative objects and cards
+ if(fine&&!reduced){
+  document.querySelectorAll('.team-card,.big-card,.mini-card,.robot-visual,.hero-object,.wheel-stage,.card').forEach(el=>{
+   el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;el.style.setProperty('--mx',x.toFixed(3));el.style.setProperty('--my',y.toFixed(3));if(el.matches('.team-card,.big-card,.mini-card,.card'))el.style.transform=`perspective(900px) rotateX(${(-y*3.2).toFixed(2)}deg) rotateY(${(x*3.8).toFixed(2)}deg) translateY(-5px)`;});
+   el.addEventListener('pointerleave',()=>{el.style.transform='';el.style.removeProperty('--mx');el.style.removeProperty('--my')});
+  });
+ }
+ // Scroll-reactive nav and page progress
+ const nav=document.querySelector('#nav,.title-pill');
+ const update=()=>{const y=window.scrollY||0;if(nav)nav.classList.toggle('scrolled',y>28);document.documentElement.style.setProperty('--bt-scroll-progress',((y/(document.documentElement.scrollHeight-innerHeight||1))*100)+'%')};
+ addEventListener('scroll',update,{passive:true});update();
+ // Buttons feel tactile without intercepting their normal action
+ document.querySelectorAll('a,button,[role="button"]').forEach(el=>{el.addEventListener('pointerdown',()=>el.classList.add('bt-pressed'));['pointerup','pointercancel','pointerleave'].forEach(ev=>el.addEventListener(ev,()=>el.classList.remove('bt-pressed')))});
+})();
+</script>
+
+<script id="bt-happiness-overdrive-script">
+(()=>{
+ if(window.__btHappinessOverdrive)return;window.__btHappinessOverdrive=true;
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const icons=['⚙️','⚡','🔩','✨','🤖','🔋'];
+ let last=0;
+ document.addEventListener('click',e=>{
+  const now=performance.now();if(now-last<80)return;last=now;
+  if(e.clientX<0||e.clientY<0)return;
+  const burst=document.createElement('div');burst.className='bt-mega-burst';
+  burst.style.left=e.clientX+'px';burst.style.top=e.clientY+'px';burst.setAttribute('aria-hidden','true');
+  const ring=document.createElement('i');ring.className='bt-mega-ring';burst.appendChild(ring);
+  const count=reduce?3:5;
+  for(let i=0;i<count;i++){
+   const p=document.createElement('span');p.className='bt-mega-piece';p.textContent=icons[(Math.random()*icons.length)|0];
+   const a=(Math.PI*2*i/count)+(Math.random()-.5)*.24;
+   const d=reduce?22:34+Math.random()*28;
+   p.style.setProperty('--x',Math.cos(a)*d+'px');p.style.setProperty('--y',Math.sin(a)*d+'px');
+   p.style.setProperty('--rot',(Math.random()*240-120)+'deg');p.style.setProperty('--sz',(14+Math.random()*7)+'px');
+   p.style.setProperty('--dur',(reduce?220:360+Math.random()*100)+'ms');p.style.setProperty('--scale',(.65+Math.random()*.25).toFixed(2));burst.appendChild(p);
+  }
+  document.body.appendChild(burst);setTimeout(()=>burst.remove(),reduce?300:520);
+  const target=e.target.closest('button,a,[role="button"],.nav-cta,.logo');
+  if(target&&target.animate)target.animate([{transform:'scale(1)'},{transform:'scale(.975)'},{transform:'scale(1)'}],{duration:260,easing:'cubic-bezier(.2,.8,.2,1)'});
+ },{passive:true});
+})();
+</script>
+
+<script id="bt-scroll-cinema-engine">(()=>{
+ const stage=document.querySelector('.bt-scroll-cinema');if(!stage)return;
+ const layers=[...stage.querySelectorAll('.bt-cinema-scene')];
+ const activate=name=>{layers.forEach(layer=>layer.classList.toggle('is-active',layer.dataset.scene===name));stage.dataset.activeScene=name;};
+ const map=[['.hero','spark'],['#about','plan'],['#team','build'],['#robot','build'],['#updates','test'],['.bio','test'],['#journey [data-story="spark"]','spark'],['#journey [data-story="plan"]','plan'],['#journey [data-story="build"]','build'],['#journey [data-story="test"]','test'],['#journey [data-story="compete"]','compete'],['#contact','compete']];
+ const targets=map.map(([selector,scene])=>({el:document.querySelector(selector),scene})).filter(x=>x.el);
+ if('IntersectionObserver'in window&&targets.length){const io=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible){const item=targets.find(x=>x.el===visible.target);if(item)activate(item.scene)}},{rootMargin:'-38% 0px -38% 0px',threshold:[0,.1,.25,.45,.65]});targets.forEach(x=>io.observe(x.el));}
+ else {const onScroll=()=>{const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);const p=(scrollY||0)/max;activate(p<.2?'spark':p<.4?'plan':p<.6?'build':p<.8?'test':'compete')};addEventListener('scroll',onScroll,{passive:true});onScroll();}
+ // Preload next stage so crossfades are ready before the reader reaches each scene.
+ ['journey-spark.jpg','journey-plan.jpg','journey-build.jpg','journey-test.jpg','journey-compete.jpg'].forEach(src=>{const img=new Image();img.src='assets/'+src});
+})();</script>
 </body>
 </html>
