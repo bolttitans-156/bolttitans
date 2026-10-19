@@ -768,7 +768,7 @@ html{scroll-behavior:smooth}
 <style id="bt-flight-performance">
 /* Flight-performance pass: keep the atmosphere on the compositor and cursor instantly responsive. */
 body:after{filter:none!important;opacity:.34!important;will-change:transform;backface-visibility:hidden;}
-#bt-cursor{transition:opacity .12s linear!important;will-change:transform;backface-visibility:hidden;}
+#bt-cursor{transition:none!important;will-change:transform;backface-visibility:hidden;}
 #bt-cursor .bt-ring{transform:rotate(var(--bt-flight-angle,0deg)) scaleY(.62);will-change:transform;}
 #bt-cursor .bt-core{will-change:transform,box-shadow;}
 .bt-motion-ready{transition:opacity .48s cubic-bezier(.2,.7,.2,1),transform .58s cubic-bezier(.2,.7,.2,1)!important;}
@@ -1281,7 +1281,7 @@ if (reduceMotion.matches) {
     const flash=document.createElement('i'); flash.className='bt-click-flash';
     flash.style.left=x+'px';flash.style.top=y+'px';flash.style.transform='translate(-50%,-50%)';document.body.appendChild(flash);
     flash.addEventListener('animationend',()=>flash.remove(),{once:true});
-    const count=window.innerWidth<600?10:16;
+    const count=window.innerWidth<600?3:4;
     for(let i=0;i<count;i++){
       const p=document.createElement('span');p.className='bt-party-particle';
       p.textContent=party[Math.floor(Math.random()*party.length)];
@@ -1319,23 +1319,18 @@ if (reduceMotion.matches) {
  const boot=()=>{
   if(document.getElementById('bt-cursor')) return;
   const fine=matchMedia('(pointer:fine)').matches;
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const cursor=document.createElement('div');cursor.id='bt-cursor';cursor.setAttribute('aria-hidden','true');
   cursor.innerHTML='<span class="bt-ring"></span><span class="bt-core"></span>';
   document.body.appendChild(cursor);
   if(!fine)return;
   document.documentElement.classList.add('bt-cursor-on');
-  let x=-100,y=-100,tx=-100,ty=-100,raf=0,px=0,py=0;
-  const draw=()=>{
-   // High-response exponential easing: keeps the planetary cursor gliding without dragging behind the pointer.
-   const ease=reduce?1:.86;
-   x+=(tx-x)*ease;y+=(ty-y)*ease;
-   const dx=tx-px,dy=ty-py;px=tx;py=ty;
-   cursor.style.transform=`translate3d(${x-21}px,${y-21}px,0)`;
-   cursor.style.setProperty('--bt-flight-angle',`${Math.max(-18,Math.min(18,dx*.45))}deg`);
-   if(Math.abs(tx-x)+Math.abs(ty-y)>.35) raf=requestAnimationFrame(draw); else raf=0;
+  // Direct compositor transform on every pointer event: no spring queue or trailing animation.
+  cursor.style.opacity='1';
+  const move=e=>{
+   cursor.style.transform=`translate3d(${e.clientX-21}px,${e.clientY-21}px,0)`;
+   cursor.style.setProperty('--bt-flight-angle','0deg');
+   cursor.style.opacity='1';
   };
-  const move=e=>{tx=e.clientX;ty=e.clientY;cursor.style.opacity='1';if(!raf)raf=requestAnimationFrame(draw)};
   window.addEventListener('pointermove',move,{passive:true});
   window.addEventListener('pointerdown',()=>cursor.classList.add('bt-down'),{passive:true});
   window.addEventListener('pointerup',()=>cursor.classList.remove('bt-down'),{passive:true});
@@ -1385,7 +1380,7 @@ if (reduceMotion.matches) {
   const burst=document.createElement('div');burst.className='bt-mega-burst';
   burst.style.left=e.clientX+'px';burst.style.top=e.clientY+'px';burst.setAttribute('aria-hidden','true');
   const ring=document.createElement('i');ring.className='bt-mega-ring';burst.appendChild(ring);
-  const count=reduce?3:5;
+  const count=reduce?2:3;
   for(let i=0;i<count;i++){
    const p=document.createElement('span');p.className='bt-mega-piece';p.textContent=icons[(Math.random()*icons.length)|0];
    const a=(Math.PI*2*i/count)+(Math.random()-.5)*.24;
