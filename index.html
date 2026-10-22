@@ -630,6 +630,12 @@ a,button,[role="button"],.team-card{cursor:none}
 @media(pointer:coarse){body,a,button,[role="button"],.team-card{cursor:auto}}
 @media(prefers-reduced-motion:reduce){body{cursor:auto}.bt-party-particle,.bt-click-flash{display:none!important}.hero-inner,.hero-kicker,.hero h1,.hero-sub{animation:none!important}.robot-box,.robot-box:after,.robot-light{animation:none!important}}
 
+
+.team-photo{position:relative;margin:0 0 26px;overflow:hidden;border:1px solid rgba(240,200,90,.3);border-radius:26px;background:linear-gradient(135deg,rgba(110,36,255,.16),rgba(240,200,90,.08));box-shadow:0 22px 60px rgba(0,0,0,.24)}
+.team-photo img{display:block;width:100%;max-height:520px;aspect-ratio:16/7;object-fit:cover;object-position:center}
+.team-photo figcaption{position:absolute;left:18px;bottom:16px;padding:9px 13px;border:1px solid #ffffff35;border-radius:999px;background:rgba(20,10,34,.72);color:#f0c85a;font-size:.72rem;font-weight:800;letter-spacing:.13em;backdrop-filter:blur(12px)}
+@media(max-width:760px){.team-photo img{aspect-ratio:4/3;max-height:380px}.team-photo figcaption{left:10px;bottom:10px;font-size:.62rem}}
+
 </style>
 
 <style id="bt-joy-engine">
@@ -944,6 +950,11 @@ body> .nav-wrap, body>main, body>footer{position:relative;z-index:1}
         </div>
         <p>The people behind the machine, each bringing a different specialty to the same build.</p>
       </div>
+
+      <figure class="team-photo reveal" aria-label="Bolt Titans team photo">
+        <img src="assets/the_team.jpg" alt="The Bolt Titans team together" loading="lazy">
+        <figcaption>SEVEN MINDS. ONE MISSION.</figcaption>
+      </figure>
 
       <div class="interaction-bar reveal" role="group" aria-label="Filter team members">
         <button class="filter-chip active" type="button" data-filter="all" aria-pressed="true">Everyone · 7</button>
